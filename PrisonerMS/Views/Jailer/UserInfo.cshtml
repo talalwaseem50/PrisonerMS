@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "UserInfo";
+}
+
+@section CustomHeader{
+    <nav class="navbar navbar-expand-sm bg-light">
+
+        <a class="navbar-brand" href="#">PMS</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#"> Jailer </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            @if (Session["FullName"] != null)
+            {
+                <p class="navbar-text"> Welcome, @Session["FullName"].ToString() </p>
+            }
+            <li class="nav-item ml-auto">
+                <a class="nav-link" href="@Url.Action("Index", "Home")"> Logout </a>
+            </li>
+        </ul>
+    </nav>
+}
+
+
+<div class="row">
+    <div class="col-2">
+        <div class="sidenav">
+            <a href="@Url.Action("DashBoard", "Jailer")">DashBoard</a>
+            <a href="@Url.Action("Complaints", "Jailer")">Complaints</a>
+            <a href="@Url.Action("Transfers", "Jailer")">Transfers</a>
+            <a href="@Url.Action("UserInfo", "Jailer")">Profile</a>
+        </div>
+    </div>
+
+
+    <div class="container body-content">
+        <h3 class="divheading text-center">Profile</h3>
+        <hr class="hunderline" />
+
+        <p><strong>Username : </strong> asad <p>
+            <button href="#" type="button" class="btn btn-info" onclick="PasswordChangefunction(1)">Change Password</button>
+
+
+            <h3 class="divheading text-center">Personal Info</h3>
+            <hr class="hunderline" />
+
+        <p><strong>Name : </strong> </p>
+        <p><strong>Gender : </strong> Male </p>
+        <p><strong>Contact : </strong>03004112112</p>
+        <p><strong>DateJoined : </strong>11/11/2019</p>
+        <p><strong>Account Status : </strong>Jail Officer</p>
+        <button href="#" type="button" class="btn btn-success" onclick="EditInfofunction(1)">Edit Info</button>
+
+
+        <div class="modal fade" id="changePasswordModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Change Password</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="changePasswordModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editInfoModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Edit Profile Info</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="editInfoModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<script>
+    var PasswordChangefunction = function (bid) {
+
+        var url = "/JailO/PasswordChange?id=" + bid;
+
+        $("#changePasswordModalBodyDiv1").load(url, function () {
+            $("#changePasswordModal").modal("show");
+
+        })
+    }
+
+    var EditInfofunction = function (uid) {
+
+        var url = "/JailO/EditInfo?id=" + uid;
+
+        $("#editInfoModalBodyDiv1").load(url, function () {
+            $("#editInfoModal").modal("show");
+
+        })
+    }
+</script>
+
+
+

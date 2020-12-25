@@ -1,0 +1,36 @@
+﻿@model int
+
+<div>
+    <div class="card rounded px-5 py-2">
+        <div class="card-body">
+            <form action="AddVisitor" class="form needs-validation" role="form" autocomplete="off" method="post">
+
+                <input type="hidden" class="form-control" id="C_CompID" name="ComplaintID" value=@Model required />
+
+                <div class="form-group">
+                    <label for="C_Name">Type</label>
+                    <input type="text" class="form-control" placeholder="Enter Type" id="C_Name" name="FullName" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_CNIC">Type Number</label>
+                    <input type="text" class="form-control" placeholder="Enter (Prison) Number" id="C_CNIC" name="CNIC" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_Add">Description</label>
+                    <input type="text" class="form-control" placeholder="Enter Description" id="C_Add" name="Address" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-success btn-block">Done</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+

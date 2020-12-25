@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "PrisonerDetails";
+}
+
+@model Tuple<PrisonerMS.Models.Prisoner, List<PrisonerMS.Models.Punishment>>
+
+@section CustomHeader{
+    <nav class="navbar navbar-expand-sm bg-light">
+
+        <a class="navbar-brand" href="#">PMS</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#"> Jail Officer </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            @if (Session["FullName"] != null)
+            {
+                <p class="navbar-text"> Welcome, @Session["FullName"].ToString() </p>
+            }
+            <li class="nav-item ml-auto">
+                <a class="nav-link" href="@Url.Action("Index", "Home")"> Logout </a>
+            </li>
+        </ul>
+    </nav>
+}
+
+<div class="container body-content">
+    <h3 class="divheading text-center">Prisoner Details</h3>
+    <hr class="hunderline" />
+
+    <div class="card rounded px-5 py-2">
+        <div class="card-body">
+            @*<img class="float-right" src="">*@
+
+            <h3> Tim Corey </h3>
+            <p><strong>Number: </strong>5555</p>
+            <p><strong>Gender: </strong>M</p>
+            <p><strong>Father Name: </strong>Corey Jack</p>
+            <p><strong>CNIC: </strong>35202121212</p>
+            <p><strong>Adress: </strong>cejcjnejckkdmckknfknc</p>
+            <p><strong>Date of Birth: </strong>11/11/1998</p>
+            <p><strong>Visiting Day: </strong>Monday</p>
+            <p><strong>Visiting Time: </strong>11:00</p>
+            <p><strong>Cell Number: </strong>42D</p>
+            <p><strong>Prison Number: </strong>65</p>
+            <p><strong>Prison Name: </strong>Lahore District Jail</p>
+        </div>
+    </div>
+
+    <h3 class="divheading text-center">Punishment History</h3>
+    <hr class="hunderline" />
+
+    <div class="card rounded px-5 py-2">
+        <div class="card-body">
+
+            @if (Model != null)
+            {
+                if (Model.Item2 != null && Model.Item2.Count != 0)
+                {
+                    <table id="example" class="table table-striped table-bordered table-hover" cellspacing="0">
+                        <tr>
+                            <th>Type</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Execution Date</th>
+                            <th>Notes</th>
+                            <th>Prison Number</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        @foreach (var item in Model.Item2)
+                        {
+                            <tr>
+                                <td>@item.Type</td>
+                                <td>@item.DateStart</td>
+                                <td>@item.DateEnd</td>
+                                <td>@item.DateExecution</td>
+                                <td>@item.Notes</td>
+                                <td>@item.PrisonNumber</td>
+                                <td><a href="#" class="btn btn-success" onclick="EditVisitorfunction(@item.PunishmentID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                                <td><a href=" ../../JailO/RemovePunishment?id=@item.PunishmentID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
+                            </tr>
+                        }
+                    </table>
+                }
+            }
+
+
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">Edit Detail</button>
+    <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Complaint History</button>
+    <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Transfer History</button>
+    <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Visitor History</button>
+</div>

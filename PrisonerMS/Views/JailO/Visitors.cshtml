@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Visitors";
+}
+
+@model List<PrisonerMS.Models.Visitor>
+
+@section CustomHeader{
+    <nav class="navbar navbar-expand-sm bg-light">
+
+        <a class="navbar-brand" href="#">PMS</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#"> Jail Officer </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            @if (Session["FullName"] != null)
+            {
+                <p class="navbar-text"> Welcome, @Session["FullName"].ToString() </p>
+            }
+            <li class="nav-item ml-auto">
+                <a class="nav-link" href="@Url.Action("Index", "Home")"> Logout </a>
+            </li>
+        </ul>
+    </nav>
+}
+
+
+<div class="row">
+    <div class="col-2">
+        <div class="sidenav">
+            <a href="@Url.Action("DashBoard", "JailO")">DashBoard</a>
+            <a href="@Url.Action("Prisoners", "JailO")">Prisoners</a>
+            <a href="@Url.Action("Complaints", "JailO")">Complaints</a>
+            <a href="@Url.Action("Visitors", "JailO")">Visitors</a>
+            <a href="@Url.Action("Transfers", "JailO")">Transfers</a>
+            <a href="@Url.Action("UserInfo", "JailO")">Profile</a>
+        </div>
+    </div>
+
+
+    <div class="container body-content">
+        <h3 class="divheading text-center">Visitors</h3>
+        <hr class="hunderline" />
+
+        @if (Model != null)
+        {
+            <table id="example" class="table table-striped table-bordered table-hover" cellspacing="0">
+                <tr>
+                    <th>Number</th>
+                    <th>Name</th>
+                    <th>CNIC</th>
+                    <th>Address</th>
+                    <th>Priosner No</th>
+                    <th>Prisoner Name</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><a href=" ../../JailO/VisitorDetails?id=@item.VisitorRecordID">@item.VisitorRecordID</a></td>
+                        <td>@item.FullName</td>
+                        <td>@item.CNIC</td>
+                        <td>@item.Address</td>
+                        <td><a href=" ../../JailO/PrisonerDetails?id=@item.PrisonerID">@item.PrisonerNo</a></td>
+                        <td>@item.PrisonerName</td>
+                        <td><a href="#" class="btn btn-success" onclick="EditVisitorfunction(@item.VisitorRecordID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                        <td><a href=" ../../JailO/RemoveVisitor?id=@item.VisitorRecordID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
+                    </tr>
+                }
+            </table>
+        }
+
+
+
+    </div>
+</div>
+

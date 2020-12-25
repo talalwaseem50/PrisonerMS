@@ -1,0 +1,287 @@
+﻿
+@{
+    ViewBag.Title = "DashBoard";
+}
+
+@model List<PrisonerMS.Models.Prisoner>
+
+@section CustomHeader{
+    <nav class="navbar navbar-expand-sm bg-light">
+
+        <a class="navbar-brand" href="#">PMS</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#"> Jail Officer </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            @if (Session["FullName"] != null)
+            {
+                <p class="navbar-text"> Welcome, @Session["FullName"].ToString() </p>
+            }
+            <li class="nav-item ml-auto">
+                <a class="nav-link" href="@Url.Action("Index", "Home")"> Logout </a>
+            </li>
+        </ul>
+    </nav>
+}
+
+
+<div class="row">
+    <div class="col-2">
+        <div class="sidenav">
+            <a href="@Url.Action("DashBoard", "JailO")">DashBoard</a>
+            <a href="@Url.Action("Prisoners", "JailO")">Prisoners</a>
+            <a href="@Url.Action("Complaints", "JailO")">Complaints</a>
+            <a href="@Url.Action("Visitors", "JailO")">Visitors</a>
+            <a href="@Url.Action("Transfers", "JailO")">Transfers</a>
+            <a href="@Url.Action("UserInfo", "JailO")">Profile</a>
+        </div>
+    </div>
+
+
+    <div class="container body-content">
+        <h3 class="divheading text-center">Prisoners</h3>
+        <hr class="hunderline" />
+
+        <div class="form-group row">
+            <div class="col-3">
+                <input type="text" class="form-control float-left" placeholder="Enter Search Text.." name="searchString" required>
+                <div class="invalid-feedback">Please enter valid input</div>
+            </div>
+
+            <div class="col-5">
+                <button type="submit" class="btn btn-success float-left">Search</button>
+            </div>
+
+            <div class="col-4">
+                <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#AddPrisonerModal">Add New Prisoner</button>
+            </div>
+        </div>
+
+        @if (Model != null)
+        {
+            <table id="example" class="table table-striped table-bordered table-hover" cellspacing="0">
+                <tr>
+                    <th>Number</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>CNIC</th>
+                    <th>Father's Name</th>
+                    <th>Date of Birth</th>
+                    <th>Visiting Day</th>
+                    <th>Visiting Time</th>
+                    <th>Visitor</th>
+                    <th>Complaint</th>
+                    <th>Transfer</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><a href=" ../../JailO/PrisonerDetails?id=@item.PrisonerID">@item.PrisonerNo</a></td>
+                        <td>@item.FullName</td>
+                        <td>@item.Gender</td>
+                        <td>@item.CNIC</td>
+                        <td>@item.FatherName</td>
+                        <td>@item.DateBirth</td>
+                        <td>@item.VisitingDay</td>
+                        <td>@item.VisitingTime</td>
+                        <td><a href="#" class="btn btn-primary" onclick="AddVisitorfunction(@item.PrisonerID)"><i class="fa fa-plus"></i> </a> </td>
+                        <td><a href="#" class="btn btn-primary" onclick="AddComplaintfunction(@item.PrisonerID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                        <td><a href="#" class="btn btn-primary" onclick="AddTransferfunction(@item.PrisonerID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                        <td><a href="#" class="btn btn-success" onclick="EditPrisonerfunction(@item.PrisonerID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                        <td><a href=" ../../JailO/RemovePrisoner?id=@item.PrisonerID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
+                    </tr>
+                }
+            </table>
+        }
+
+        <div class="modal fade" id="AddPrisonerModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Add Prisoner</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="addPrisonerModalBodyDiv1">
+                        <div class="card rounded px-5 py-2">
+                            <div class="card-body">
+                                <form action="AddPrisoner" class="form needs-validation" role="form" autocomplete="off" id="Add_CreatePrisoner" method="post">
+
+                                    <div class="form-group">
+                                        <label for="C_PNumber">Number</label>
+                                        <input type="text" class="form-control" placeholder="Enter Prisoner Number" id="C_Title" name="Title" required>
+                                        <div class="invalid-feedback">Please enter valid input</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="C_Name">Full Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter Full Name" id="C_Name" name="FullName" required>
+                                        <div class="invalid-feedback">Please enter valid input</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="C_Gen">Gender</label>
+                                        <input type="text" class="form-control" placeholder="Enter Gender (M/F)" id="C_Gen" name="Gender" required>
+                                        <div class="invalid-feedback">Please enter valid input</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="C_FName">Father Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter Prisoner's Father Name" id="C_FName" name="FatherName" required>
+                                        <div class="invalid-feedback">Please enter valid input</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="C_CNIC">CNIC</label>
+                                        <input type="text" class="form-control" placeholder="Enter CNIC" id="C_CNIC" name="CNIC" required>
+                                        <div class="invalid-feedback">Please enter valid input</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="C_Add">Address</label>
+                                        <input type="text" class="form-control" placeholder="Enter Address" id="C_Add" name="Address" required>
+                                        <div class="invalid-feedback">Please enter valid input</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="C_DOB">Date of Birth</label>
+                                        <input type="text" class="form-control" placeholder="Enter Birth Date (30/12/2000)" id="C_DOB" name="DOB" required>
+                                        <div class="invalid-feedback">Please enter valid input</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="C_VD">Visiting Day</label>
+                                        <input type="text" class="form-control" placeholder="Enter Visiting Day (Monday)" id="C_VD" name="VD" required>
+                                        <div class="invalid-feedback">Please enter valid input</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="C_VT">Visiting Time</label>
+                                        <input type="text" class="form-control" placeholder="Enter Visitng Time (13:00)" id="C_VT" name="VT" required>
+                                        <div class="invalid-feedback">Please enter valid input</div>
+                                    </div>
+
+                                    <div>
+                                        <button type="submit" class="btn btn-success btn-block">Add Prisoner</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addVisitorModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Add Visitor</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="addVisitorModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addComplaintModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Add Complaint</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="addComplaintModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addTransferModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Add Transfer</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="addTransferModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editPrisonerModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Edit Book</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="editPrisonerModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script language="javascript" type="text/javascript">
+    window.onload = function () {
+
+        $('#example').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+        alert("hi");
+
+
+    };
+
+</script>
+
+<script>
+    var AddVisitorfunction = function (vid) {
+
+        var url = "/JailO/AddVisitor?id=" + vid;
+
+        $("#addVisitorModalBodyDiv1").load(url, function () {
+            $("#addVisitorModal").modal("show");
+
+        })
+    }
+
+    var AddComplaintfunction = function (vid) {
+
+        var url = "/JailO/AddComplaint?id=" + vid;
+
+        $("#addComplaintModalBodyDiv1").load(url, function () {
+            $("#addComplaintModal").modal("show");
+
+        })
+    }
+
+    var AddTransferfunction = function (vid) {
+
+        var url = "/JailO/AddTransfer?id=" + vid;
+
+        $("#addTransferModalBodyDiv1").load(url, function () {
+            $("#addTransferModal").modal("show");
+
+        })
+    }
+
+    var EditPrisonerfunction = function (pid) {
+
+        var url = "/JailO/EditPrisoner?id=" + pid;
+
+        $("#editPrisonerModalBodyDiv1").load(url, function () {
+            $("#editPrisonerModal").modal("show");
+
+        })
+    }
+</script>

@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "DashBoard";
+}
+
+@section CustomHeader{
+    <nav class="navbar navbar-expand-sm bg-light">
+
+        <a class="navbar-brand" href="#">PMS</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#"> Jail Officer </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            @if (Session["FullName"] != null)
+            {
+                <p class="navbar-text"> Welcome, @Session["FullName"].ToString() </p>
+            }
+            <li class="nav-item ml-auto">
+                <a class="nav-link" href="@Url.Action("Index", "Home")"> Logout </a>
+            </li>
+        </ul>
+    </nav>
+}
+
+
+<div class="row">
+    <div class="col-2">
+        <div class="sidenav">
+            <a href="@Url.Action("DashBoard", "JailO")">DashBoard</a>
+            <a href="@Url.Action("Prisoners", "JailO")">Prisoners</a>
+            <a href="@Url.Action("Complaints", "JailO")">Complaints</a>
+            <a href="@Url.Action("Visitors", "JailO")">Visitors</a>
+            <a href="@Url.Action("Transfers", "JailO")">Transfers</a>
+            <a href="@Url.Action("UserInfo", "JailO")">Profile</a>
+        </div>
+    </div>
+
+
+    <div class="container body-content">
+        <h3 class="divheading text-center">Pending Transfers</h3>
+        <hr class="hunderline" />
+
+        <table id="example" class="table table-striped table-bordered table-hover" cellspacing="0">
+            <tr>
+                <th>Number</th>
+                <th>Type</th>
+                <th>Type Number</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Entry Date</th>
+                <th>Priosner No</th>
+                <th>Prisoner Name</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>1</a></td>
+                <td>Prison</td>
+                <td>64</td>
+                <td>cjsdjcsjd</td>
+                <td>Approved by Jail</td>
+                <td>11/11/2020</td>
+                <td><a href=" ../../JailO/PrisonerDetails?id=1">1</a></td>
+                <td>Tim Corey</td>
+                <td><a href="#" class="btn btn-success" onclick="EditTransferfunction(1)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+            </tr>
+            <tr>
+                <td>2</a></td>
+                <td>Prison</td>
+                <td>64</td>
+                <td>cjsdjcsjd</td>
+                <td>Approved by Jail</td>
+                <td>11/11/2020</td>
+                <td><a href=" ../../JailO/PrisonerDetails?id=1">1</a></td>
+                <td>Tim Corey</td>
+                <td><a href="#" class="btn btn-success" onclick="EditTransferfunction(1)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+            </tr>
+        </table>
+
+        <h3 class="divheading text-center">Transfers Approved</h3>
+        <hr class="hunderline" />
+
+        <table id="example2" class="table table-striped table-bordered table-hover" cellspacing="0">
+            <tr>
+                <th>Number</th>
+                <th>Type</th>
+                <th>Type Number</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Entry Date</th>
+                <th>Priosner No</th>
+                <th>Prisoner Name</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>7</a></td>
+                <td>Prison</td>
+                <td>65</td>
+                <td>cjsdjcsjd</td>
+                <td>Approved</td>
+                <td>11/11/2020</td>
+                <td><a href=" ../../JailO/PrisonerDetails?id=1">1</a></td>
+                <td>Tim Corey</td>
+                <td><a href="#" class="btn btn-success" onclick="EditTransferfunction(1)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+            </tr>
+            
+        </table>
+    </div>
+</div>
+

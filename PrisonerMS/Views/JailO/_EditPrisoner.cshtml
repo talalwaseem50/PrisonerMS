@@ -1,0 +1,70 @@
+﻿@model PrisonerMS.Models.Prisoner
+
+<div>
+    <div class="card rounded px-5 py-2">
+        <div class="card-body">
+            <form action="UpdatePrisoner" class="form needs-validation" role="form" autocomplete="off" method="post">
+
+                <div class="form-group">
+                    <label for="C_PNumber">Number</label>
+                    <input type="text" class="form-control" placeholder="Enter Prisoner Number" id="C_Title" name="Title" value="@Model.PrisonerNo" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_Name">Full Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Full Name" id="C_Name" name="FullName" value="@Model.FullName" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_Gen">Gender</label>
+                    <input type="text" class="form-control" placeholder="Enter Gender (M/F)" id="C_Gen" name="Gender" value="@Model.Gender" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_FName">Father Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Prisoner's Father Name" id="C_FName" name="FatherName" value="@Model.FatherName" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_CNIC">CNIC</label>
+                    <input type="text" class="form-control" placeholder="Enter CNIC" id="C_CNIC" name="CNIC" value="@Model.CNIC" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_Add">Address</label>
+                    <input type="text" class="form-control" placeholder="Enter Address" id="C_Add" name="Address" value="@Model.Address" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_DOB">Date of Birth</label>
+                    <input type="text" class="form-control" placeholder="Enter Birth Date (30/12/2000)" id="C_DOB" name="DOB" value="@Model.DateBirth" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_VD">Visiting Day</label>
+                    <input type="text" class="form-control" placeholder="Enter Visiting Day (Monday)" id="C_VD" name="VD" value="@Model.VisitingDay" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_VT">Visiting Time</label>
+                    <input type="text" class="form-control" placeholder="Enter Visitng Time (13:00)" id="C_VT" name="VT" value="@Model.VisitingTime" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-success btn-block">Update Prisoner</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+

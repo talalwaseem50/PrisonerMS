@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+    @RenderSection("CustomHeader", required: false)
+    @RenderSection("HomePageView", required: false)
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="py-5" style="background-color: rgb(10, 42, 102)">
+            <div class="container py-4" style="border-top: 1px solid #DDDDDD !important; color: #DDDDDD">
+                <p>&copy; @DateTime.Now.Year - Prisoner Management System</p>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
