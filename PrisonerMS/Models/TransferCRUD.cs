@@ -12,7 +12,7 @@ namespace PrisonerMS.Models
             List<Transfer> TransfersList = new List<Transfer>();
 
             Transfer t1 = new Transfer();
-            t1.TrnaferID = 1;
+            t1.TransferID = 1;
             t1.Type = "Prison";
             t1.TypeNumber = "64";
             t1.Description = "sjdbcjs";
@@ -24,7 +24,7 @@ namespace PrisonerMS.Models
             TransfersList.Add(t1);
 
             Transfer t2 = new Transfer();
-            t2.TrnaferID = 1;
+            t2.TransferID = 1;
             t2.Type = "Hospital";
             t2.TypeNumber = "-";
             t1.Description = "sjdbcjs";
@@ -36,7 +36,7 @@ namespace PrisonerMS.Models
             TransfersList.Add(t2);
 
             Transfer t3 = new Transfer();
-            t3.TrnaferID = 1;
+            t3.TransferID = 1;
             t3.Type = "Court";
             t3.TypeNumber = "-";
             t1.Description = "sjdbcjs";
@@ -48,6 +48,23 @@ namespace PrisonerMS.Models
             TransfersList.Add(t3);
 
             return TransfersList;
+        }
+
+        public static Transfer GetTransfer(int id)
+        {
+            Transfer t1 = new Transfer();
+            t1.TransferID = 1;
+            t1.Type = "Prison";
+            t1.TypeNumber = "64";
+            t1.Description = "sjdbcjs";
+            t1.Status = "Placed";
+            t1.PrisonerID = 1;
+            t1.PrisonerNo = "5555";
+            t1.PrisonerName = "Tim Corey";
+            t1.DateEntry = "11/11/2020";
+
+            return t1;
+
         }
     }
 }

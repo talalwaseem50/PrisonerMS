@@ -1,27 +1,58 @@
-﻿@model int
+﻿@model PrisonerMS.Models.Visitor
 
 <div>
     <div class="card rounded px-5 py-2">
         <div class="card-body">
-            <form action="AddVisitor" class="form needs-validation" role="form" autocomplete="off" method="post">
+            <form action="EditVisitorForm" class="form needs-validation" role="form" autocomplete="off" method="post">
 
-                <input type="hidden" class="form-control" id="C_CompID" name="ComplaintID" value=@Model required />
+                <input type="hidden" class="form-control" id="C_PID" name="VisitorID" value="@Model.VisitorRecordID" required />
 
                 <div class="form-group">
-                    <label for="C_Name">Full Name</label>
-                    <input type="text" class="form-control" placeholder="Enter Full Name" id="C_Name" name="FullName" required>
+                    <label for="C_FName">First Name</label>
+                    <input type="text" class="form-control" placeholder="Enter First Name" id="C_FName" name="FirstName" value="@Model.FirstName" required>
                     <div class="invalid-feedback">Please enter valid input</div>
                 </div>
 
                 <div class="form-group">
+                    <label for="C_LName">Last Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Last Name" id="C_LName" name="LastName" value="@Model.LastName" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                @if (Model.Gender.Equals("M"))
+                {
+                    <div>
+                        <label for="Gender">Gender </label>
+                        <input type="radio" name="Gender" value="M" checked required> Male
+                        <input type="radio" name="Gender" value="F"> Female
+                        <div class="invalid-feedback">Select Option</div>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <label for="Gender">Gender </label>
+                        <input type="radio" name="Gender" value="M" > Male
+                        <input type="radio" name="Gender" value="F" checked required> Female
+                        <div class="invalid-feedback">Select Option</div>
+                    </div>
+                }
+
+                <div class="form-group">
                     <label for="C_CNIC">CNIC</label>
-                    <input type="text" class="form-control" placeholder="Enter CNIC" id="C_CNIC" name="CNIC" required>
+                    <input type="text" class="form-control" placeholder="Enter CNIC" id="C_CNIC" name="CNIC" value="@Model.CNIC" required>
                     <div class="invalid-feedback">Please enter valid input</div>
                 </div>
 
                 <div class="form-group">
                     <label for="C_Add">Address</label>
-                    <input type="text" class="form-control" placeholder="Enter Address" id="C_Add" name="Address" required>
+                    <input type="text" class="form-control" placeholder="Enter Address" id="C_Add" name="Address" value="@Model.Address" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_Rel">Relation</label>
+                    <input type="text" class="form-control" placeholder="Enter Relation with Prisoner" id="C_Rel" name="Relation" value="@Model.Relation" required>
                     <div class="invalid-feedback">Please enter valid input</div>
                 </div>
 

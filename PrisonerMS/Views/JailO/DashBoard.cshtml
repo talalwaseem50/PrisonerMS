@@ -55,17 +55,6 @@
                 <th>Status</th>
             </tr>
             <tr>
-                <td>1</a></td>
-                <td>Prison</td>
-                <td>64</td>
-                <td>cjsdjcsjd</td>
-                <td>Approved by Jail</td>
-                <td>11/11/2020</td>
-                <td><a href=" ../../JailO/PrisonerDetails?id=1">1</a></td>
-                <td>Tim Corey</td>
-                <td><a href="#" class="btn btn-success" onclick="EditTransferfunction(1)"><i class="fa fa-pencil-square-o"></i> </a> </td>
-            </tr>
-            <tr>
                 <td>2</a></td>
                 <td>Prison</td>
                 <td>64</td>
@@ -74,9 +63,22 @@
                 <td>11/11/2020</td>
                 <td><a href=" ../../JailO/PrisonerDetails?id=1">1</a></td>
                 <td>Tim Corey</td>
-                <td><a href="#" class="btn btn-success" onclick="EditTransferfunction(1)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                <td><a href="#" class="btn btn-success" onclick="StatusTransferIncomingfunction(1)"><i class="fa fa-pencil-square-o"></i> </a> </td>
             </tr>
         </table>
+
+        <div class="modal fade" id="changeTransferIncomingStatusModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Transfer Status</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="changeTransferIncomingStatusModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <h3 class="divheading text-center">Transfers Approved</h3>
         <hr class="hunderline" />
@@ -102,10 +104,55 @@
                 <td>11/11/2020</td>
                 <td><a href=" ../../JailO/PrisonerDetails?id=1">1</a></td>
                 <td>Tim Corey</td>
-                <td><a href="#" class="btn btn-success" onclick="EditTransferfunction(1)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                <td><a href="#" class="btn btn-success" onclick="StatusTransferfunction(1, 'Prison', 'CheckOu')"><i class="fa fa-pencil-square-o"></i> </a> </td>
             </tr>
-            
         </table>
+
+        <div class="modal fade" id="changeTransferStatusModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Transfer Status</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="changeTransferStatusModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
+<script>
+
+    var StatusTransferIncomingfunction = function (tid) {
+
+        var url = "/JailO/StatusTransferIncoming?id=" + tid;
+
+        $("#changeTransferIncomingStatusModalBodyDiv1").load(url, function () {
+            $("#changeTransferIncomingStatusModal").modal("show");
+
+        })
+    }
+
+    var StatusTransferfunction = function (tid, p, c) {
+
+        para = 0
+        if (p == 'Prison')
+            para = 1
+
+        co = 0
+        if (c == 'CheckOut')
+            co = 1
+
+        var url = "/JailO/StatusTransfer?id=" + tid + "&p=" + para + "&c=" + co;
+
+        $("#changeTransferStatusModalBodyDiv1").load(url, function () {
+            $("#changeTransferStatusModal").modal("show");
+
+        })
+    }
+
+</script>

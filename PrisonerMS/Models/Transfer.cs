@@ -7,7 +7,7 @@ namespace PrisonerMS.Models
 {
     public class Transfer
     {
-        public int TrnaferID { get; set; }
+        public int TransferID { get; set; }
         public string Type { get; set; }
         public string TypeNumber { get; set; }
         public string Description { get; set; }

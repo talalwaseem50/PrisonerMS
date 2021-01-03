@@ -300,6 +300,12 @@
     <Content Include="Views\Jailer\Transfers.cshtml" />
     <Content Include="Views\JailO\UserInfo.cshtml" />
     <Content Include="Views\Jailer\UserInfo.cshtml" />
+    <Content Include="Views\JailO\_DetailVisitor.cshtml" />
+    <Content Include="Views\Jailer\_StatusTransfer.cshtml" />
+    <Content Include="Views\JailO\_StatusTransferIncoming.cshtml" />
+    <Content Include="Views\JailO\_StatusTransfer.cshtml" />
+    <Content Include="Views\JailO\_EditVisitor.cshtml" />
+    <Content Include="Views\JailO\_EditTransfer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

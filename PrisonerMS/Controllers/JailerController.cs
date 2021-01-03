@@ -41,9 +41,29 @@ namespace PrisonerMS.Controllers
             return View();
         }
 
+
+        //Status
         public ActionResult ComplaintStatus(int id)
         {
             return PartialView("_ComplaintStatus", id);
+        }
+
+        public ActionResult StatusTransfer(int id, int p)
+        {
+            return PartialView("_StatusTransfer", new Tuple<int, int>(id, p));
+        }
+
+        //Form
+        [HttpPost]
+        public ActionResult StatusTransferForm(FormCollection collection)
+        {
+            string status = collection["TransferStatus"];
+
+            return null;
+            //if (AccountCRUD.UpdateUser(myacc))
+            //    return Content("<script>alert('Profile Edited Successfully.');window.location.href=document.referrer;</script>");
+            //else
+            //    return Content("<script>alert('Profile Could not be Updated');window.location.href=document.referrer</script>");
         }
     }
 }

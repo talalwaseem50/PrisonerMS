@@ -1,0 +1,49 @@
+﻿@model Tuple<int, int>
+
+<div>
+    <div class="card rounded px-5 py-2">
+        <div class="card-body">
+            <form action="StatusTransferForm" class="form needs-validation" role="form" autocomplete="off" method="post">
+
+                <input type="hidden" class="form-control" id="C_CompID" name="ComplaintID" value=@Model.Item1 required />
+
+                @if (Model.Item2 == 1)
+                {
+                    <div class="form-group">
+                        <label for="C_TransferStatus">Status</label>
+                        <select class="form-control" id="C_TransferStatus" name="TransferStatus">
+                            <option value="Approved">Approved</option>
+                            <option value="CheckOut">CheckOut</option>
+                        </select>
+                    </div>
+                }
+                else if (Model.Item2 == 2)
+                {
+                    <div class="form-group">
+                        <label for="C_TransferStatus">Status</label>
+                        <select class="form-control" id="C_TransferStatus" name="TransferStatus">
+                            <option value="Approved">Approved</option>
+                            <option value="CheckOut">CheckOut</option>
+                        </select>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label for="C_TransferStatus">Status</label>
+                        <select class="form-control" id="C_TransferStatus" name="TransferStatus">
+                            <option value="CheckOut">CheckOut</option>
+                            <option value="Complete">CheckIn</option>
+                        </select>
+                    </div>
+                }
+
+                <div>
+                    <button type="submit" class="btn btn-success float-right">Done</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@model PrisonerMS.Models.Visitor
+
+<div>
+    <div class="card rounded px-5 py-2">
+        <div class="card-body">
+
+            <h3> @Model.FirstName @Model.LastName </h3>
+            <p><strong>First Name: </strong>@Model.FirstName</p>
+            <p><strong>Last Name: </strong>@Model.LastName</p>
+            <p><strong>Gender: </strong>@Model.Gender</p>
+            <p><strong>CNIC: </strong>@Model.CNIC</p>
+            <p><strong>Adress: </strong>@Model.Address</p>
+            <p><strong>Relation: </strong>@Model.Relation</p>
+            <p><strong>Visit Date: </strong>@Model.VisitDate</p>
+            <p><strong>Prisoner Number: </strong>@Model.Prisoner.PrisonerNo</p>
+            <p><strong>Prisoner Name: </strong>@Model.Prisoner.FullName</p>
+
+            <button type="button" class="btn btn-info" onclick="location.href = '../../JailO/PrisonerDetails?id=@Model.Prisoner.PrisonerID';">View Prisoner</button>
+        </div>
+    </div>
+</div>

@@ -62,7 +62,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td><a href=" ../../JailO/ComplaintDetails?id=@item.TrnaferID">@item.TrnaferID</a></td>
+                        <td><a href=" ../../JailO/ComplaintDetails?id=@item.TransferID">@item.TransferID</a></td>
                         <td>@item.Type</td>
                         <td>@item.TypeNumber</td>
                         <td>@item.Description</td>
@@ -70,14 +70,39 @@
                         <td>@item.DateEntry</td>
                         <td><a href=" ../../JailO/PrisonerDetails?id=@item.PrisonerID">@item.PrisonerNo</a></td>
                         <td>@item.PrisonerName</td>
-                        <td><a href="#" class="btn btn-success" onclick="EditTransferfunction(@item.TrnaferID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
-                        <td><a href=" ../../JailO/RemoveTransfer?id=@item.TrnaferID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
+                        <td><a href="#" class="btn btn-success" onclick="EditTransferfunction(@item.TransferID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                        <td><a href=" ../../JailO/RemoveTransfer?id=@item.TransferID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
                     </tr>
                 }
             </table>
         }
 
-
+        <div class="modal fade" id="editTransferModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Add Transfer</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="editTransferModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>
+
+<script>
+
+    var EditTransferfunction = function (vid) {
+
+        var url = "/JailO/EditTransfer?id=" + vid;
+
+        $("#editTransferModalBodyDiv1").load(url, function () {
+            $("#editTransferModal").modal("show");
+
+        })
+    }
+
+</script>

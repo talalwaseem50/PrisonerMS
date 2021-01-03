@@ -3,25 +3,33 @@
 <div>
     <div class="card rounded px-5 py-2">
         <div class="card-body">
-            <form action="AddVisitor" class="form needs-validation" role="form" autocomplete="off" method="post">
+            <form action="AddTransferForm" class="form needs-validation" role="form" autocomplete="off" method="post">
 
-                <input type="hidden" class="form-control" id="C_CompID" name="ComplaintID" value=@Model required />
+                <input type="hidden" class="form-control" id="C_PID" name="PrisonerID" value=@Model required />
 
                 <div class="form-group">
-                    <label for="C_Name">Type</label>
-                    <input type="text" class="form-control" placeholder="Enter Type" id="C_Name" name="FullName" required>
+                    <label for="C_Type">Type</label>
+                    <input type="text" class="form-control" placeholder="Select Type" list="type" id="C_Type" name="Type" required>
+                    <datalist id="type">
+                        <option value="Prison">
+                        <option value="Hospital">
+                        <option value="Court">
+                    </datalist>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group" hidden id="TypeNumberDiv">
+                    <label for="C_TNumber">Type Number</label>
+                    <select class="form-control" placeholder="Enter (Prison) Number" id="C_TNumber" name="TypeNumber">
+                        <option value="65">65 - Lahore</option>
+                        <option value="66">66 - Sialkot</option>
+                    </select>
                     <div class="invalid-feedback">Please enter valid input</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="C_CNIC">Type Number</label>
-                    <input type="text" class="form-control" placeholder="Enter (Prison) Number" id="C_CNIC" name="CNIC" required>
-                    <div class="invalid-feedback">Please enter valid input</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="C_Add">Description</label>
-                    <input type="text" class="form-control" placeholder="Enter Description" id="C_Add" name="Address" required>
+                    <label for="C_Desc">Description</label>
+                    <input type="text" class="form-control" placeholder="Enter Description" id="C_Desc" name="Desc" required>
                     <div class="invalid-feedback">Please enter valid input</div>
                 </div>
 
@@ -34,3 +42,19 @@
     </div>
 </div>
 
+<script>
+
+
+    $("#C_Type").change(function () {
+        if ($(this).val() == "Prison") {
+            $('#TypeNumberDiv').show();
+            $('#TypeNumberDiv').removeAttr('hidden');
+            $('#C_TNumber').attr('required', '');
+            $('#C_TNumber').attr('data-error', 'This field is required.');
+        } else {
+            $('#TypeNumberDiv').hide();
+            $('#C_TNumber').removeAttr('required');
+            $('#C_TNumber').removeAttr('data-error');
+        }
+    });
+</script>

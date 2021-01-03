@@ -1,0 +1,26 @@
+﻿@model int
+
+<div>
+    <div class="card rounded px-5 py-2">
+        <div class="card-body">
+            <form action="StatusTransferIncomingForm" class="form needs-validation" role="form" autocomplete="off" method="post">
+
+                <input type="hidden" class="form-control" id="C_CompID" name="ComplaintID" value=@Model required />
+
+                <div class="form-group">
+                    <label for="C_TransferStatus">Status</label>
+                    <select class="form-control" id="C_TransferStatus" name="TransferStatus">
+                        <option value="Approved Jailer">InProgress</option>
+                        <option value="Approved">Approved</option>
+                    </select>
+                </div>    
+
+                <div>
+                    <button type="submit" class="btn btn-success float-right">Done</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -51,7 +51,8 @@
                     <th>Number</th>
                     <th>Name</th>
                     <th>CNIC</th>
-                    <th>Address</th>
+                    <th>Relation</th>
+                    <th>Date</th>
                     <th>Priosner No</th>
                     <th>Prisoner Name</th>
                     <th>Edit</th>
@@ -60,12 +61,13 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td><a href=" ../../JailO/VisitorDetails?id=@item.VisitorRecordID">@item.VisitorRecordID</a></td>
-                        <td>@item.FullName</td>
+                        <td><a href="#" onclick="DetailVisitorfunction(@item.VisitorRecordID)">@item.VisitorRecordID</a></td>
+                        <td>@item.FirstName @item.LastName</td>
                         <td>@item.CNIC</td>
-                        <td>@item.Address</td>
-                        <td><a href=" ../../JailO/PrisonerDetails?id=@item.PrisonerID">@item.PrisonerNo</a></td>
-                        <td>@item.PrisonerName</td>
+                        <td>@item.Relation</td>
+                        <td>@item.VisitDate</td>
+                        <td><a href=" ../../JailO/PrisonerDetails?id=@item.Prisoner.PrisonerID">@item.Prisoner.PrisonerNo</a></td>
+                        <td>@item.Prisoner.FullName</td>
                         <td><a href="#" class="btn btn-success" onclick="EditVisitorfunction(@item.VisitorRecordID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
                         <td><a href=" ../../JailO/RemoveVisitor?id=@item.VisitorRecordID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
                     </tr>
@@ -73,8 +75,55 @@
             </table>
         }
 
+        <div class="modal fade" id="detailVisitorModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Visitor Detail</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="detailVisitorModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="modal fade" id="editVisitorModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Edit Visitor</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="editVisitorModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>
 
+<script>
+
+    var EditVisitorfunction = function (vid) {
+
+        var url = "/JailO/EditVisitor?id=" + vid;
+
+        $("#editVisitorModalBodyDiv1").load(url, function () {
+            $("#editVisitorModal").modal("show");
+
+        })
+    }
+
+    var DetailVisitorfunction = function (vid) {
+
+        var url = "/JailO/DetailVisitor?id=" + vid;
+
+        $("#detailVisitorModalBodyDiv1").load(url, function () {
+            $("#detailVisitorModal").modal("show");
+
+        })
+    }
+
+</script>

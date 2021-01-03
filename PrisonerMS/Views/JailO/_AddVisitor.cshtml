@@ -3,14 +3,27 @@
 <div>
     <div class="card rounded px-5 py-2">
         <div class="card-body">
-            <form action="AddVisitor" class="form needs-validation" role="form" autocomplete="off" method="post">
+            <form action="AddVisitorForm" class="form needs-validation" role="form" autocomplete="off" method="post">
 
-                <input type="hidden" class="form-control" id="C_CompID" name="ComplaintID" value=@Model required />
+                <input type="hidden" class="form-control" id="C_PID" name="PrisonerID" value=@Model required />
 
                 <div class="form-group">
-                    <label for="C_Name">Full Name</label>
-                    <input type="text" class="form-control" placeholder="Enter Full Name" id="C_Name" name="FullName" required>
+                    <label for="C_FName">First Name</label>
+                    <input type="text" class="form-control" placeholder="Enter First Name" id="C_FName" name="FirstName" required>
                     <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_LName">Last Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Last Name" id="C_LName" name="LastName" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div>
+                    <label for="Gender">Gender </label>
+                    <input type="radio" name="Gender" value="M" checked required> Male
+                    <input type="radio" name="Gender" value="F"> Female
+                    <div class="invalid-feedback">Select Option</div>
                 </div>
 
                 <div class="form-group">
@@ -22,6 +35,12 @@
                 <div class="form-group">
                     <label for="C_Add">Address</label>
                     <input type="text" class="form-control" placeholder="Enter Address" id="C_Add" name="Address" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_Rel">Relation</label>
+                    <input type="text" class="form-control" placeholder="Enter Relation with Prisoner" id="C_Rel" name="Relation" required>
                     <div class="invalid-feedback">Please enter valid input</div>
                 </div>
 

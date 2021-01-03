@@ -72,7 +72,13 @@ namespace PrisonerMS.Models
                     tPrisoner.DateBirth = (string)cmd.Parameters["@dateb"].Value;
                     tPrisoner.VisitingDay = (string)cmd.Parameters["@vDay"].Value;
                     tPrisoner.VisitingTime = (string)cmd.Parameters["@vTime"].Value;
-                    tPrisoner.DateEntry = Convert.ToString(cmd.Parameters["@datee"].Value);
+
+                    //DateTime dt = (DateTime)cmd.Parameters["@datee"].Value;
+                    //string s = dt.ToString("dd/MM/yyyy");
+                    //String t = dt.ToString("HH:mm");
+
+                    tPrisoner.DateEntry = ((DateTime)cmd.Parameters["@datee"].Value).ToString("dd/MM/yyyy");
+                    
 
                     return tPrisoner;
                 }
