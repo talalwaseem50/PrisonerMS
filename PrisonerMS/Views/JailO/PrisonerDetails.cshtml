@@ -47,14 +47,14 @@
             <p><strong>Prison Number: </strong>65</p>
             <p><strong>Prison Name: </strong>Lahore District Jail</p>
             <p><strong>Entry Date: </strong>Date Entry</p>
-            
+
         </div>
     </div>
 
-    <h3 class="divheading text-center">Punishment History</h3>
+    <h3 class="divheading text-center my-2">Punishment History</h3>
     <hr class="hunderline" />
 
-    <div class="card rounded px-5 py-2">
+    <div class="card rounded px-2 py-2">
         <div class="card-body">
 
             @if (Model != null)
@@ -88,13 +88,71 @@
                     </table>
                 }
             }
-
-
         </div>
     </div>
 
-    <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">Edit Detail</button>
-    <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Complaint History</button>
-    <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Transfer History</button>
-    <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Visitor History</button>
+
+    <div class="modal fade" id="AddMedicalModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title divheading col-12 text-center">Add Medical Record</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="addMedicalModalBodyDiv1">
+                    <div class="card rounded px-5 py-2">
+                        <div class="card-body">
+                            <form action="AddMedicalForm" class="form needs-validation" role="form" autocomplete="off" method="post">
+
+                                <input type="hidden" class="form-control" id="C_PID" name="PrisonerID" value=@Model.Item1.PrisonerID required />
+
+                                <div class="form-group">
+                                    <label for="C_Symp">Symptoms</label>
+                                    <input type="text" class="form-control" placeholder="Enter Symptoms" id="C_Symp" name="Symptoms" required>
+                                    <div class="invalid-feedback">Please enter valid input</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="C_Diag">Diagnoses</label>
+                                    <input type="text" class="form-control" placeholder="Enter Diagnosis" id="C_Diag" name="Diagnosis" required>
+                                    <div class="invalid-feedback">Please enter valid input</div>
+                                </div>
+
+                                <div>
+                                    <button type="submit" class="btn btn-success btn-block">Add</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="py-3">
+        <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">Edit Detail</button>
+        <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Complaint History</button>
+        <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Transfer History</button>
+        <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Visitor History</button>
+        <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="collapse" data-target="#demo" onclick="LoadMedicalRecordsfunction(1)">View Medical History</button>
+        <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddMedicalModal">Add Medical</button>
+    </div>
+
+
+    <div id="demo" class="collapse">
+    </div>
+
 </div>
+
+<script>
+
+    var LoadMedicalRecordsfunction = function (pid) {
+
+        var url = "/JailO/MedicalRecords?id=" + pid;
+        console.log("Hello world!");
+        $("#demo").load(url);
+    }
+
+</script>

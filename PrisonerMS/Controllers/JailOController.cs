@@ -37,7 +37,7 @@ namespace PrisonerMS.Controllers
 
         public ActionResult PrisonerDetails()
         {
-            return View(new Tuple<Prisoner, List<Punishment>>(new Prisoner(), PunishmentCRUD.GetAllPunishments()));
+            return View(new Tuple<Prisoner, List<Punishment>>(PrisonerCRUD.GetPrisoner(1), PunishmentCRUD.GetAllPunishments()));
         }
 
         public ActionResult UserInfo()
@@ -45,6 +45,22 @@ namespace PrisonerMS.Controllers
             return View();
         }
 
+
+        //Load Extend
+        public ActionResult MedicalRecords(int id)
+        {
+            List<Medical> mrList = MedicalCRUD.GetAllPrisonerMedicals(1);
+            List<Medication> mList = new List<Medication>();
+            List<Allergy> aList = new List<Allergy>();
+
+            foreach (Medical mr in mrList)
+            {
+                mList.AddRange(MedicationCRUD.GetAllMedicalMedications(mr.MedicalID));
+                aList.AddRange(AllergyCRUD.GetAllMedicalAllergys(mr.MedicalID));
+            }
+
+            return PartialView("_MedicalRecords", new Tuple<List<Medical>, List<Medication>, List<Allergy>>(mrList, mList, aList));
+        }
 
         //Detail
         public ActionResult DetailVisitor(int id)
@@ -62,7 +78,7 @@ namespace PrisonerMS.Controllers
 
         public ActionResult EditVisitor(int id)
         {
-            Visitor visitor = VisitorCRUD.GetVisitor(1);
+            Visitor visitor = VisitorCRUD.GetVisitor(id);
             return PartialView("_EditVisitor", visitor);
         }
 
@@ -70,6 +86,12 @@ namespace PrisonerMS.Controllers
         {
             return PartialView("_EditTransfer", TransferCRUD.GetTransfer(id));
         }
+
+        public ActionResult EditMedical(int id)
+        {
+            return PartialView("_EditMedical", MedicalCRUD.GetMedical(id));
+        }
+
 
         //Add
         public ActionResult AddComplaint(int id)
@@ -102,11 +124,10 @@ namespace PrisonerMS.Controllers
             visitor.Prisoner = new Prisoner();
             visitor.Prisoner.PrisonerID = Int32.Parse(collection["PrisonerID"]);
 
-            return null;
-            //if (AccountCRUD.UpdateUser(myacc))
-            //    return Content("<script>alert('Profile Edited Successfully.');window.location.href=document.referrer;</script>");
-            //else
-            //    return Content("<script>alert('Profile Could not be Updated');window.location.href=document.referrer</script>");
+            if (VisitorCRUD.InsertVisitor(visitor))
+                return Content("<script>alert('Visitor Added Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Visitor could not be Added');window.location.href=document.referrer</script>");
         }
 
         [HttpPost]
@@ -121,11 +142,10 @@ namespace PrisonerMS.Controllers
             visitor.Relation = collection["Relation"];
             visitor.VisitorRecordID = Int32.Parse(collection["VisitorID"]);
 
-            return null;
-            //if (AccountCRUD.UpdateUser(myacc))
-            //    return Content("<script>alert('Profile Edited Successfully.');window.location.href=document.referrer;</script>");
-            //else
-            //    return Content("<script>alert('Profile Could not be Updated');window.location.href=document.referrer</script>");
+            if (VisitorCRUD.UpdateVisitor(visitor))
+                return Content("<script>alert('Visiter Info Updated Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Visitor Info could not be Updated');window.location.href=document.referrer</script>");
         }
 
         [HttpPost]
@@ -187,6 +207,37 @@ namespace PrisonerMS.Controllers
             //    return Content("<script>alert('Profile Could not be Updated');window.location.href=document.referrer</script>");
         }
 
+        [HttpPost]
+        public ActionResult AddMedicalForm(FormCollection collection)
+        {
+            Medical medical = new Medical();
+            medical.Symptoms = collection["Symptoms"];
+            medical.Diagnosis = collection["Diagnosis"];
+            medical.Prisoner = new Prisoner();
+            medical.Prisoner.PrisonerID = Int32.Parse(collection["PrisonerID"]);
+
+            if (MedicalCRUD.InsertMedical(medical))
+                return Content("<script>alert('Medical Added Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Medical could not be Added');window.location.href=document.referrer</script>");
+        }
+
+        [HttpPost]
+        public ActionResult EditMedicalForm(FormCollection collection)
+        {
+            Medical medical = new Medical();
+            medical.Symptoms = collection["Symptoms"];
+            medical.Diagnosis = collection["Diagnosis"];
+            medical.Prisoner = new Prisoner();
+            medical.MedicalID = Int32.Parse(collection["MedicalID"]);
+
+            if (MedicalCRUD.UpdateMedical(medical))
+                return Content("<script>alert('Medical Updated Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Medical could not be Updated');window.location.href=document.referrer</script>");
+        }
+
+
 
         //Status
         public ActionResult ComplaintStatus(int id)
@@ -229,10 +280,10 @@ namespace PrisonerMS.Controllers
 
         public ActionResult RemoveVisitor(int id)
         {
-            if (true)
-                return Content("<script>alert('Visitor Deleted Successfully.');window.location.href=document.referrer;</script>");
+            if (VisitorCRUD.DeleteVisitor(id))
+                return Content("<script>alert('Visitor Deleted Successfully');window.location.href=document.referrer;</script>");
             else
-                return Content("<script>alert('Visitor could not be found.');window.location.href=document.referrer</script>");
+                return Content("<script>alert('Visitor could not be Deleted');window.location.href=document.referrer</script>");
         }
 
         public ActionResult RemoveTransfer(int id)
@@ -241,6 +292,14 @@ namespace PrisonerMS.Controllers
                 return Content("<script>alert('Transfer Deleted Successfully.');window.location.href=document.referrer;</script>");
             else
                 return Content("<script>alert('Transfer could not be found.');window.location.href=document.referrer</script>");
+        }
+
+        public ActionResult RemoveMedical(int id)
+        {
+            if (MedicalCRUD.DeleteMedical(id))
+                return Content("<script>alert('Medical Record Deleted Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Medical Record could not be Deleted.');window.location.href=document.referrer</script>");
         }
     }
 }

@@ -5,12 +5,12 @@ using System.Data.SqlClient;
 
 namespace PrisonerMS.Models
 {
-    public class VisitorCRUD
+    public class MedicalCRUD
     {
         static string ConnectionString = "data source=DESKTOP-QGDLCC0; database=PMS; integrated security = SSPI;";
         //Others
 
-        public static Visitor GetVisitor(int id)
+        public static Medical GetMedical(int id)
         {
             using (SqlConnection Server = new SqlConnection(ConnectionString))
             {
@@ -18,39 +18,24 @@ namespace PrisonerMS.Models
                 SqlCommand cmd = new SqlCommand();
                 try
                 {
-                    cmd.CommandText = "GetVisitor";
+                    cmd.CommandText = "GetHealthRecord";
                     cmd.Connection = Server;
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     //input para
-                    cmd.Parameters.Add(new SqlParameter("@vid", id));
+                    cmd.Parameters.Add(new SqlParameter("@hrid", id));
 
                     //output parameters
-                    cmd.Parameters.Add(new SqlParameter("@FName", SqlDbType.VarChar, 30));
-                    cmd.Parameters["@FName"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@LName", SqlDbType.VarChar, 30));
-                    cmd.Parameters["@LName"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@gender", SqlDbType.VarChar, 1));
-                    cmd.Parameters["@gender"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@cnic", SqlDbType.Char, 11));
-                    cmd.Parameters["@cnic"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@vaddress", SqlDbType.VarChar, 100));
-                    cmd.Parameters["@vaddress"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@relation", SqlDbType.VarChar, 20));
-                    cmd.Parameters["@relation"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@dateV", SqlDbType.Date));
-                    cmd.Parameters["@dateV"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@pid", SqlDbType.Int));
-                    cmd.Parameters["@pid"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@pno", SqlDbType.VarChar, 30));
-                    cmd.Parameters["@pno"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@pname", SqlDbType.VarChar, 30));
-                    cmd.Parameters["@pname"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@sym", SqlDbType.VarChar, 1000));
+                    cmd.Parameters["@sym"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@dig", SqlDbType.VarChar, 1000));
+                    cmd.Parameters["@dig"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@pd", SqlDbType.Int));
+                    cmd.Parameters["@pd"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.Int));
                     cmd.Parameters["@flag"].Direction = ParameterDirection.Output;
 
                     cmd.ExecuteNonQuery();
-
                 }
                 catch (SqlException ex)
                 {
@@ -61,20 +46,14 @@ namespace PrisonerMS.Models
 
                 if (Flag == 1)
                 {
-                    Visitor v1 = new Visitor();
-                    v1.VisitorRecordID = id;
-                    v1.FirstName = (string)cmd.Parameters["@FName"].Value;
-                    v1.LastName = (string)cmd.Parameters["@LName"].Value;
-                    v1.Gender = (string)cmd.Parameters["@gender"].Value;
-                    v1.CNIC = (string)cmd.Parameters["@cnic"].Value;
-                    v1.Address = (string)cmd.Parameters["@vaddress"].Value;
-                    v1.Relation = (string)cmd.Parameters["@relation"].Value;
-                    v1.VisitDate = ((DateTime)cmd.Parameters["@dateV"].Value).ToString("dd/MM/yyyy");
-                    v1.Prisoner = new Prisoner();
-                    v1.Prisoner.PrisonerID = Convert.ToInt32(cmd.Parameters["@pid"].Value);
-                    v1.Prisoner.PrisonerNo = (string)cmd.Parameters["@pno"].Value;
-                    v1.Prisoner.FullName = (string)cmd.Parameters["@pname"].Value;
-                    return v1;
+                    Medical m = new Medical();
+                    m.MedicalID = id;
+                    m.Symptoms = (string)cmd.Parameters["@sym"].Value;
+                    m.Diagnosis = (string)cmd.Parameters["@dig"].Value;
+                    m.EntryDate = "-"; //((DateTime)cmd.Parameters["@dateV"].Value).ToString("dd/MM/yyyy");
+                    m.Prisoner = new Prisoner();
+                    m.Prisoner.PrisonerID = Convert.ToInt32(cmd.Parameters["@pd"].Value);
+                    return m;
                 }
                 else
                     return null;
@@ -82,25 +61,25 @@ namespace PrisonerMS.Models
         }
 
 
-        public static List<Visitor> GetAllVisitors()
+        public static List<Medical> GetAllPrisonerMedicals(int id)
         {
             using (SqlConnection ServerConnection = new SqlConnection(ConnectionString))
             {
                 ServerConnection.Open();
-                List<Visitor> VisitorsList = new List<Visitor>();
+                List<Medical> MedicalsList = new List<Medical>();
 
                 try
                 {
                     SqlCommand cmd = new SqlCommand();
                     DataTable sqlPrisoners = new DataTable();
-                    SqlDataAdapter Data = new SqlDataAdapter("Select VID From [Visitor]", ServerConnection);
+                    SqlDataAdapter Data = new SqlDataAdapter("Select HRID from [HealthRecord] where PID = " + id, ServerConnection);
                     Data.Fill(sqlPrisoners);
 
                     foreach (DataRow row in sqlPrisoners.Rows)
                     {
-                        Visitor tvisitor = GetVisitor((int)row["VID"]);
-                        if (tvisitor != null)
-                            VisitorsList.Add(tvisitor);
+                        Medical tmedical = GetMedical((int)row["HRID"]);
+                        if (tmedical != null)
+                            MedicalsList.Add(tmedical);
                     }
                 }
                 catch (SqlException ex)
@@ -112,12 +91,12 @@ namespace PrisonerMS.Models
                     ServerConnection.Close();
                 }
 
-                return VisitorsList;
+                return MedicalsList;
             }
         }
 
 
-        public static bool InsertVisitor(Visitor visitor)
+        public static bool InsertMedical(Medical medical)
         {
             using (SqlConnection ServerConnection = new SqlConnection(ConnectionString))
             {
@@ -127,63 +106,14 @@ namespace PrisonerMS.Models
                 SqlCommand cmd = new SqlCommand();
                 try
                 {
-                    cmd.CommandText = "InsertVisitor";
+                    cmd.CommandText = "InsertHealthRecord";
                     cmd.Connection = ServerConnection;
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     //passing parameters to procedure
-                    cmd.Parameters.Add(new SqlParameter("@FName", visitor.FirstName));
-                    cmd.Parameters.Add(new SqlParameter("@LName", visitor.LastName));
-                    cmd.Parameters.Add(new SqlParameter("@gender", visitor.Gender));
-                    cmd.Parameters.Add(new SqlParameter("@cnic", visitor.CNIC));
-                    cmd.Parameters.Add(new SqlParameter("@vaddress", visitor.Address));
-                    cmd.Parameters.Add(new SqlParameter("@relation", visitor.Relation));
-                    cmd.Parameters.Add(new SqlParameter("@pid", visitor.Prisoner.PrisonerID));
-                    
-                    //passing output para
-                    cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.Int));
-                    cmd.Parameters["@flag"].Direction = ParameterDirection.Output;
-
-                    cmd.ExecuteNonQuery();  //run procedure
-                }
-                catch (SqlException ex)
-                {
-                    Console.Write("SQL Server Error" + ex);
-                }
-                finally
-                {
-                    ServerConnection.Close();
-                }
-
-                int Flag = (int)cmd.Parameters["@flag"].Value;
-
-                return Flag == 1;
-            }
-        }
-
-
-        public static bool UpdateVisitor(Visitor visitor)
-        {
-            using (SqlConnection ServerConnection = new SqlConnection(ConnectionString))
-            {
-                ServerConnection.Open();
-
-                //calling procedure from db
-                SqlCommand cmd = new SqlCommand();
-                try
-                {
-                    cmd.CommandText = "UpdateVisitor";
-                    cmd.Connection = ServerConnection;
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-                    //passing parameters to procedure
-                    cmd.Parameters.Add(new SqlParameter("@vid", visitor.VisitorRecordID));
-                    cmd.Parameters.Add(new SqlParameter("@FName", visitor.FirstName));
-                    cmd.Parameters.Add(new SqlParameter("@LName", visitor.LastName));
-                    cmd.Parameters.Add(new SqlParameter("@gender", visitor.Gender));
-                    cmd.Parameters.Add(new SqlParameter("@cnic", visitor.CNIC));
-                    cmd.Parameters.Add(new SqlParameter("@vaddress", visitor.Address));
-                    cmd.Parameters.Add(new SqlParameter("@relation", visitor.Relation));
+                    cmd.Parameters.Add(new SqlParameter("@sym", medical.Symptoms));
+                    cmd.Parameters.Add(new SqlParameter("@dig", medical.Diagnosis));
+                    cmd.Parameters.Add(new SqlParameter("@pd", medical.Prisoner.PrisonerID));
 
                     //passing output para
                     cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.Int));
@@ -207,7 +137,48 @@ namespace PrisonerMS.Models
         }
 
 
-        public static bool DeleteVisitor(int id)
+        public static bool UpdateMedical(Medical medical)
+        {
+            using (SqlConnection ServerConnection = new SqlConnection(ConnectionString))
+            {
+                ServerConnection.Open();
+
+                //calling procedure from db
+                SqlCommand cmd = new SqlCommand();
+                try
+                {
+                    cmd.CommandText = "UpdateHealthRecord";
+                    cmd.Connection = ServerConnection;
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    //passing parameters to procedure
+                    cmd.Parameters.Add(new SqlParameter("@hrid", medical.MedicalID));
+                    cmd.Parameters.Add(new SqlParameter("@sym", medical.Symptoms));
+                    cmd.Parameters.Add(new SqlParameter("@dig", medical.Diagnosis));
+
+                    //passing output para
+                    cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.Int));
+                    cmd.Parameters["@flag"].Direction = ParameterDirection.Output;
+
+                    cmd.ExecuteNonQuery();  //run procedure
+                }
+                catch (SqlException ex)
+                {
+                    Console.Write("SQL Server Error" + ex);
+                }
+                finally
+                {
+                    ServerConnection.Close();
+                }
+
+                int Flag = (int)cmd.Parameters["@flag"].Value;
+
+                return Flag == 1;
+            }
+        }
+
+
+        public static bool DeleteMedical(int id)
         {
             using (SqlConnection ServerConnection = new SqlConnection(ConnectionString))
             {
@@ -216,12 +187,12 @@ namespace PrisonerMS.Models
                 SqlCommand cmd = new SqlCommand();
                 try
                 {
-                    cmd.CommandText = "DeleteVisitor";
+                    cmd.CommandText = "DeleteHealthRecord";
                     cmd.Connection = ServerConnection;
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     //passing parameters to procedure
-                    cmd.Parameters.Add(new SqlParameter("@vid", id));
+                    cmd.Parameters.Add(new SqlParameter("@hrid", id));
 
                     //passing output para
                     cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.Int));

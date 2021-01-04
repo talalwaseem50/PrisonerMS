@@ -127,8 +127,14 @@
     </Compile>
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountCRUD.cs" />
+    <Compile Include="Models\Allergy.cs" />
+    <Compile Include="Models\AllergyCRUD.cs" />
     <Compile Include="Models\Complaint.cs" />
     <Compile Include="Models\ComplaintCRUD.cs" />
+    <Compile Include="Models\Medical.cs" />
+    <Compile Include="Models\MedicalCRUD.cs" />
+    <Compile Include="Models\Medication.cs" />
+    <Compile Include="Models\MedicationCRUD.cs" />
     <Compile Include="Models\Prisoner.cs" />
     <Compile Include="Models\PrisonerCRUD.cs" />
     <Compile Include="Models\Punishment.cs" />
@@ -306,6 +312,8 @@
     <Content Include="Views\JailO\_StatusTransfer.cshtml" />
     <Content Include="Views\JailO\_EditVisitor.cshtml" />
     <Content Include="Views\JailO\_EditTransfer.cshtml" />
+    <Content Include="Views\JailO\_MedicalRecords.cshtml" />
+    <Content Include="Views\JailO\_EditMedical.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

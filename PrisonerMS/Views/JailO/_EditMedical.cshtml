@@ -1,0 +1,29 @@
+﻿@model PrisonerMS.Models.Medical
+
+<div>
+    <div class="card rounded px-5 py-2">
+        <div class="card-body">
+            <form action="EditMedicalForm" class="form needs-validation" role="form" autocomplete="off" method="post">
+
+                <input type="hidden" class="form-control" id="C_PID" name="MedicalID" value="@Model.MedicalID" required />
+
+                <div class="form-group">
+                    <label for="C_Symp">Symptoms</label>
+                    <input type="text" class="form-control" placeholder="Enter Symptoms" id="C_Symp" name="Symptoms" value="@Model.Symptoms" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_Diag">Diagnoses</label>
+                    <input type="text" class="form-control" placeholder="Enter Diagnosis" id="C_Diag" name="Diagnosis" value="@Model.Diagnosis" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-success btn-block">Done</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
