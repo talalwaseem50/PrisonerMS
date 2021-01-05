@@ -13,12 +13,9 @@ namespace PrisonerMS.Controllers
         public ActionResult DashBoard()
         {
             List<Complaint> AllComplaints = ComplaintCRUD.GetAllComplaints();
-            List<Transfer> AllTransfers = null;//RequestCRUD.GetRequest((int)Session["UserID"]);
-
             AllComplaints.RemoveAll(item => item.Status == "Resolved");
-            //AllRequests.RemoveAll(item => item.RequestStatus == "Resolved"); //only keep unresolved requests
 
-            return View(new Tuple<List<Complaint>, List<Transfer>>(AllComplaints, AllTransfers));
+            return View(new Tuple<List<Complaint>, List<Transfer>>(AllComplaints, TransferCRUD.GetAdminTransfers((int)Session["PrisonID"])));
         }
 
         public ActionResult Complaints()
@@ -28,7 +25,7 @@ namespace PrisonerMS.Controllers
 
         public ActionResult Transfers()
         {
-            return View(TransferCRUD.GetAllTransfers());
+            return View(TransferCRUD.GetAllPrisonTransfers((int)Session["PrisonID"]));
         }
 
         public ActionResult PrisonerDetails()
@@ -53,6 +50,7 @@ namespace PrisonerMS.Controllers
             return PartialView("_StatusTransfer", new Tuple<int, int>(id, p));
         }
 
+
         //Form
         [HttpPost]
         public ActionResult StatusTransferForm(FormCollection collection)
@@ -65,5 +63,6 @@ namespace PrisonerMS.Controllers
             //else
             //    return Content("<script>alert('Profile Could not be Updated');window.location.href=document.referrer</script>");
         }
+    
     }
 }

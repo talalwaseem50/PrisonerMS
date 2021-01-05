@@ -50,6 +50,10 @@ namespace PrisonerMS.Models
                     cmd.Parameters["@plname"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@prid", SqlDbType.Int));
                     cmd.Parameters["@prid"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@prnum", SqlDbType.VarChar, 30));
+                    cmd.Parameters["@prnum"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@prname", SqlDbType.VarChar, 100));
+                    cmd.Parameters["@prname"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.Int));
                     cmd.Parameters["@flag"].Direction = ParameterDirection.Output;
 
@@ -82,6 +86,8 @@ namespace PrisonerMS.Models
                     v1.Prisoner.LastName = (string)cmd.Parameters["@plname"].Value;
                     v1.Prison = new Prison();
                     v1.Prison.PrisonID = (int)cmd.Parameters["@prid"].Value;
+                    v1.Prison.PNumber = (string)cmd.Parameters["@prnum"].Value; ;
+                    v1.Prison.Name = (string)cmd.Parameters["@prname"].Value; ;
                     return v1;
                 }
                 else

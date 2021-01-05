@@ -12,9 +12,10 @@ namespace PrisonerMS.Models
         public string TypeNumber { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
-        public int PrisonerID { get; set; }
-        public string PrisonerNo { get; set; }
-        public string PrisonerName { get; set; }
-        public string DateEntry { get; set; }
+        public string EntryDate { get; set; }
+        public string EntryTime { get; set; }
+        public Prisoner Prisoner { get; set; }
+        public Prison Prison { get; set; }
+
     }
 }

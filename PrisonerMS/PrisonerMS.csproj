@@ -320,6 +320,7 @@
     <Content Include="Views\JailO\_AddMedication.cshtml" />
     <Content Include="Views\JailO\_AddAllergy.cshtml" />
     <Content Include="Views\JailO\_DetailMedical.cshtml" />
+    <Content Include="Views\JailO\_DetailTransfer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

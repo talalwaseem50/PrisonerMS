@@ -62,20 +62,33 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td><a href=" ../../JailO/ComplaintDetails?id=@item.TransferID">@item.TransferID</a></td>
+                        <td><a href="#" onclick="DetailTransferfunction(@item.TransferID)">@item.TransferID</a></td>
                         <td>@item.Type</td>
                         <td>@item.TypeNumber</td>
                         <td>@item.Description</td>
                         <td>@item.Status</td>
-                        <td>@item.DateEntry</td>
-                        <td><a href=" ../../JailO/PrisonerDetails?id=@item.PrisonerID">@item.PrisonerNo</a></td>
-                        <td>@item.PrisonerName</td>
+                        <td>@item.EntryDate</td>
+                        <td><a href=" ../../JailO/PrisonerDetails?id=@item.Prisoner.PrisonerID">@item.Prisoner.PrisonerNo</a></td>
+                        <td>@item.Prisoner.FirstName @item.Prisoner.LastName</td>
                         <td><a href="#" class="btn btn-success" onclick="EditTransferfunction(@item.TransferID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
                         <td><a href=" ../../JailO/RemoveTransfer?id=@item.TransferID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
                     </tr>
                 }
             </table>
         }
+
+        <div class="modal fade" id="detailTransferModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Transfer Detail</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="detailTransferModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="modal fade" id="editTransferModal">
             <div class="modal-dialog">
@@ -94,6 +107,16 @@
 </div>
 
 <script>
+
+    var DetailTransferfunction = function (tid) {
+
+        var url = "/JailO/DetailTransfer?id=" + tid;
+
+        $("#detailTransferModalBodyDiv1").load(url, function () {
+            $("#detailTransferModal").modal("show");
+
+        })
+    }
 
     var EditTransferfunction = function (vid) {
 

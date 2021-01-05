@@ -12,7 +12,7 @@ namespace PrisonerMS.Controllers
         // GET: JailO
         public ActionResult DashBoard()
         {
-            return View();
+            return View(new Tuple<List<Transfer>, List<Transfer>>(TransferCRUD.GetIncomingTransfers((int)Session["PrisonID"]), TransferCRUD.GetDashBoardTransfers((int)Session["PrisonID"])));
         }
 
         public ActionResult Prisoners()
@@ -32,7 +32,7 @@ namespace PrisonerMS.Controllers
 
         public ActionResult Transfers()
         {
-            return View(TransferCRUD.GetAllTransfers());
+            return View(TransferCRUD.GetAllPrisonTransfers((int)Session["PrisonID"]));
         }
 
         public ActionResult PrisonerDetails(int id)
@@ -67,6 +67,11 @@ namespace PrisonerMS.Controllers
         public ActionResult DetailVisitor(int id)
         {
             return PartialView("_DetailVisitor", VisitorCRUD.GetVisitor(id));
+        }
+
+        public ActionResult DetailTransfer(int id)
+        {
+            return PartialView("_DetailTransfer", TransferCRUD.GetTransfer(id));
         }
 
         public ActionResult DetailMedical(int id)
@@ -126,7 +131,7 @@ namespace PrisonerMS.Controllers
 
         public ActionResult AddTransfer(int id)
         {
-            return PartialView("_AddTransfer", 1);
+            return PartialView("_AddTransfer", id);
         }
 
         public ActionResult AddMedication(int id)
@@ -186,19 +191,21 @@ namespace PrisonerMS.Controllers
             Transfer transfer = new Transfer();
             transfer.Type = collection["Type"];
             transfer.Description = collection["Desc"];
-            transfer.PrisonerID = Int32.Parse(collection["PrisonerID"]);
+            transfer.Prisoner = new Prisoner();
+            transfer.Prisoner.PrisonerID = Int32.Parse(collection["PrisonerID"]);
             transfer.Status = "InProgress";
+            transfer.Prison = new Prison();
+            transfer.Prison.PrisonID = (int)Session["PrisonID"];
 
             if (transfer.Type.Equals("Prison"))
                 transfer.TypeNumber = collection["TypeNumber"];
             else
                 transfer.TypeNumber = "-";
 
-            return null;
-            //if (AccountCRUD.UpdateUser(myacc))
-            //    return Content("<script>alert('Profile Edited Successfully.');window.location.href=document.referrer;</script>");
-            //else
-            //    return Content("<script>alert('Profile Could not be Updated');window.location.href=document.referrer</script>");
+            if (TransferCRUD.InsertTransfer(transfer))
+                return Content("<script>alert('Transfer Added Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Transfer could not be Updated');window.location.href=document.referrer</script>");
         }
 
         [HttpPost]
@@ -208,35 +215,23 @@ namespace PrisonerMS.Controllers
             transfer.Description = collection["Desc"];
             transfer.TransferID = Int32.Parse(collection["TransferID"]);
 
-            return null;
-            //if (AccountCRUD.UpdateUser(myacc))
-            //    return Content("<script>alert('Profile Edited Successfully.');window.location.href=document.referrer;</script>");
-            //else
-            //    return Content("<script>alert('Profile Could not be Updated');window.location.href=document.referrer</script>");
+            if (TransferCRUD.UpdateTransfer(transfer))
+                return Content("<script>alert('Transfer Updated Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Transfer could not be Updated');window.location.href=document.referrer</script>");
         }
 
         [HttpPost]
         public ActionResult StatusTransferForm(FormCollection collection)
         {
-            string status = collection["TransferStatus"];
+            Transfer transfer = new Transfer();
+            transfer.Status = collection["TransferStatus"];
+            transfer.TransferID = Int32.Parse(collection["TransferID"]);
 
-            return null;
-            //if (AccountCRUD.UpdateUser(myacc))
-            //    return Content("<script>alert('Profile Edited Successfully.');window.location.href=document.referrer;</script>");
-            //else
-            //    return Content("<script>alert('Profile Could not be Updated');window.location.href=document.referrer</script>");
-        }
-
-        [HttpPost]
-        public ActionResult StatusTransferIncomingForm(FormCollection collection)
-        {
-            string status = collection["TransferStatus"];
-
-            return null;
-            //if (AccountCRUD.UpdateUser(myacc))
-            //    return Content("<script>alert('Profile Edited Successfully.');window.location.href=document.referrer;</script>");
-            //else
-            //    return Content("<script>alert('Profile Could not be Updated');window.location.href=document.referrer</script>");
+            if (TransferCRUD.UpdateStatusTransfer(transfer))
+                return Content("<script>alert('Transfer Status Updated Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Transfer Status could not be Updated');window.location.href=document.referrer</script>");
         }
 
         [HttpPost]
@@ -375,7 +370,7 @@ namespace PrisonerMS.Controllers
 
         public ActionResult RemoveTransfer(int id)
         {
-            if (true)
+            if (TransferCRUD.DeleteTransfer(id))
                 return Content("<script>alert('Transfer Deleted Successfully.');window.location.href=document.referrer;</script>");
             else
                 return Content("<script>alert('Transfer could not be found.');window.location.href=document.referrer</script>");
