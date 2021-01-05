@@ -30,6 +30,8 @@ namespace PrisonerMS.Models
                     cmd.Parameters["@sym"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@dig", SqlDbType.VarChar, 1000));
                     cmd.Parameters["@dig"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@datee", SqlDbType.DateTime));
+                    cmd.Parameters["@datee"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@pd", SqlDbType.Int));
                     cmd.Parameters["@pd"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.Int));
@@ -50,7 +52,8 @@ namespace PrisonerMS.Models
                     m.MedicalID = id;
                     m.Symptoms = (string)cmd.Parameters["@sym"].Value;
                     m.Diagnosis = (string)cmd.Parameters["@dig"].Value;
-                    m.EntryDate = "-"; //((DateTime)cmd.Parameters["@dateV"].Value).ToString("dd/MM/yyyy");
+                    m.EntryDate = ((DateTime)cmd.Parameters["@datee"].Value).ToString("dd/MM/yyyy");
+                    m.EntryTime = ((DateTime)cmd.Parameters["@datee"].Value).ToString("HH:mm:ss");
                     m.Prisoner = new Prisoner();
                     m.Prisoner.PrisonerID = Convert.ToInt32(cmd.Parameters["@pd"].Value);
                     return m;

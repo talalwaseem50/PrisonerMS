@@ -15,26 +15,69 @@
                     <tr>
                         <th>Number</th>
                         <th>Symptoms</th>
-                        <th>Diagnoses</th>
+                        <th>Diagnosis</th>
                         <th>Entry Date</th>
+                        <th>Medication</th>
+                        <th>Allergy</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                     @foreach (var item in Model.Item1)
                     {
-                        <tr>
-                            <td>@item.MedicalID</td>
-                            <td>@item.Symptoms</td>
-                            <td>@item.Diagnosis</td>
-                            <td>@item.EntryDate</td>
-                            <td><a href="#" class="btn btn-success" onclick="EditMedicalfunction(@item.MedicalID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
-                            <td><a href=" ../../JailO/RemoveMedical?id=@item.MedicalID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
-                        </tr>
+                <tr>
+                    <td><a href="#" onclick="DetailMedicalfunction(@item.MedicalID)">@item.MedicalID</a></td>
+                    <td>@item.Symptoms</td>
+                    <td>@item.Diagnosis</td>
+                    <td>@item.EntryDate</td>
+                    <td><a href="#" class="btn btn-primary" onclick="AddMedicationfunction(@item.MedicalID)"><i class="fa fa-plus"></i> </a> </td>
+                    <td><a href="#" class="btn btn-primary" onclick="AddAllergyfunction(@item.MedicalID)"><i class="fa fa-plus"></i> </a> </td>
+                    <td><a href="#" class="btn btn-success" onclick="EditMedicalfunction(@item.MedicalID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                    <td><a href=" ../../JailO/RemoveMedical?id=@item.MedicalID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
+                </tr>
                     }
                 </table>
             }
         }
 
+    </div>
+</div>
+
+<div class="modal fade" id="detailMedicalModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title divheading col-12 text-center">Medical Detail</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="detailMedicalModalBodyDiv1">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addMedicationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title divheading col-12 text-center">Add Medication</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="addMedicationModalBodyDiv1">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addAllergyModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title divheading col-12 text-center">Add Allergy</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="addAllergyModalBodyDiv1">
+            </div>
+        </div>
     </div>
 </div>
 
@@ -66,6 +109,7 @@
                         <tr>
                             <th>Description</th>
                             <th>Entry Date</th>
+                            <th>Medical No</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -74,8 +118,9 @@
                             <tr>
                                 <td>@item.Desc</td>
                                 <td>@item.EntryDate</td>
-                                <td><a href="#" class="btn btn-success" onclick="EditVisitorfunction(@item.MedicationID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
-                                <td><a href=" ../../JailO/RemovePunishment?id=@item.MedicationID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
+                                <td><a href="#" onclick="DetailMedicalfunction(@item.Medical.MedicalID)">@item.Medical.MedicalID</a></td>
+                                <td><a href="#" class="btn btn-success" onclick="EditMedicationfunction(@item.MedicationID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                                <td><a href=" ../../JailO/RemoveMedication?id=@item.MedicationID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
                             </tr>
                         }
                     </table>
@@ -83,6 +128,19 @@
             }
         </div>
 
+    </div>
+</div>
+
+<div class="modal fade" id="editMedicationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title divheading col-12 text-center">Edit Medication</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="editMedicationModalBodyDiv1">
+            </div>
+        </div>
     </div>
 </div>
 
@@ -101,6 +159,7 @@
                         <tr>
                             <th>Description</th>
                             <th>Entry Date</th>
+                            <th>Medical No</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -109,8 +168,9 @@
                             <tr>
                                 <td>@item.Desc</td>
                                 <td>@item.EntryDate</td>
-                                <td><a href="#" class="btn btn-success" onclick="EditVisitorfunction(@item.AllergyID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
-                                <td><a href=" ../../JailO/RemovePunishment?id=@item.AllergyID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
+                                <td><a href="#" onclick="DetailMedicalfunction(@item.Medical.MedicalID)">@item.Medical.MedicalID</a></td>
+                                <td><a href="#" class="btn btn-success" onclick="EditAllergyfunction(@item.AllergyID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                                <td><a href=" ../../JailO/RemoveAllergy?id=@item.AllergyID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
                             </tr>
                         }
                     </table>
@@ -118,6 +178,19 @@
             }
         </div>
 
+    </div>
+</div>
+
+<div class="modal fade" id="editAllergyModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title divheading col-12 text-center">Edit Allergy</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="editAllergyModalBodyDiv1">
+            </div>
+        </div>
     </div>
 </div>
 
@@ -131,12 +204,62 @@
 
 <script>
 
+    var DetailMedicalfunction = function (mid) {
+
+        var url = "/JailO/DetailMedical?id=" + mid;
+
+        $("#detailMedicalModalBodyDiv1").load(url, function () {
+            $("#detailMedicalModal").modal("show");
+
+        })
+    }
+
+    var AddMedicationfunction = function (mid) {
+
+        var url = "/JailO/AddMedication?id=" + mid;
+
+        $("#addMedicationModalBodyDiv1").load(url, function () {
+            $("#addMedicationModal").modal("show");
+
+        })
+    }
+
+    var AddAllergyfunction = function (mid) {
+
+        var url = "/JailO/AddAllergy?id=" + mid;
+
+        $("#addAllergyModalBodyDiv1").load(url, function () {
+            $("#addAllergyModal").modal("show");
+
+        })
+    }
+
     var EditMedicalfunction = function (mid) {
 
         var url = "/JailO/EditMedical?id=" + mid;
 
         $("#editMedicalModalBodyDiv1").load(url, function () {
             $("#editMedicalModal").modal("show");
+
+        })
+    }
+
+    var EditMedicationfunction = function (mid) {
+
+        var url = "/JailO/EditMedication?id=" + mid;
+
+        $("#editMedicationModalBodyDiv1").load(url, function () {
+            $("#editMedicationModal").modal("show");
+
+        })
+    }
+
+    var EditAllergyfunction = function (aid) {
+
+        var url = "/JailO/EditAllergy?id=" + aid;
+
+        $("#editAllergyModalBodyDiv1").load(url, function () {
+            $("#editAllergyModal").modal("show");
 
         })
     }

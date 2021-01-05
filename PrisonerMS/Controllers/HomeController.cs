@@ -25,6 +25,7 @@ namespace PrisonerMS.Controllers
                 Session["UserID"] = UserAcc.UserID;
                 Session["FullName"] = UserAcc.FullName;
                 Session["UserType"] = UserAcc.AccType;
+                Session["PrisonID"] = UserAcc.Prison.PrisonID;
 
                 return RedirectToAction("DashBoard", UserAcc.AccType == "J" ? "Jailer" : "JailO");
             }
@@ -35,9 +36,9 @@ namespace PrisonerMS.Controllers
         public ActionResult Logout()
         {
             Session["UserID"] = null;
-            Session["UserName"] = null;
-            Session["Priviledges"] = null;
-            Session["OrderItems"] = null;
+            Session["FullName"] = null;
+            Session["UserType"] = null;
+            Session["PrisonID"] = null;
 
             return RedirectToAction("Index", "Home");
         }

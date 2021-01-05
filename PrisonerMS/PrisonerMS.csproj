@@ -135,6 +135,7 @@
     <Compile Include="Models\MedicalCRUD.cs" />
     <Compile Include="Models\Medication.cs" />
     <Compile Include="Models\MedicationCRUD.cs" />
+    <Compile Include="Models\Prison.cs" />
     <Compile Include="Models\Prisoner.cs" />
     <Compile Include="Models\PrisonerCRUD.cs" />
     <Compile Include="Models\Punishment.cs" />
@@ -314,6 +315,11 @@
     <Content Include="Views\JailO\_EditTransfer.cshtml" />
     <Content Include="Views\JailO\_MedicalRecords.cshtml" />
     <Content Include="Views\JailO\_EditMedical.cshtml" />
+    <Content Include="Views\JailO\_EditMedication.cshtml" />
+    <Content Include="Views\JailO\_EditAllergy.cshtml" />
+    <Content Include="Views\JailO\_AddMedication.cshtml" />
+    <Content Include="Views\JailO\_AddAllergy.cshtml" />
+    <Content Include="Views\JailO\_DetailMedical.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,7 +9,8 @@ namespace PrisonerMS.Models
     {
         public int PrisonerID { get; set; }
         public string PrisonerNo { get; set; }
-        public string FullName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public char Gender { get; set; }
         public string FatherName { get; set; }
         public string CNIC { get; set; }
@@ -18,5 +19,6 @@ namespace PrisonerMS.Models
         public string VisitingDay { get; set; }
         public string VisitingTime { get; set; }
         public string DateEntry { get; set; }
+        public Prison Prison { get; set; }
     }
 }

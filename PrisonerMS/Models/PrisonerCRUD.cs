@@ -28,8 +28,10 @@ namespace PrisonerMS.Models
                     //output parameters
                     cmd.Parameters.Add(new SqlParameter("@pnum", SqlDbType.VarChar, 30));
                     cmd.Parameters["@pnum"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@fname", SqlDbType.VarChar, 30));
-                    cmd.Parameters["@fname"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@fName", SqlDbType.VarChar, 30));
+                    cmd.Parameters["@fName"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@lName", SqlDbType.VarChar, 30));
+                    cmd.Parameters["@lName"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@gen", SqlDbType.Char, 1));
                     cmd.Parameters["@gen"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@faname", SqlDbType.VarChar, 30));
@@ -44,8 +46,14 @@ namespace PrisonerMS.Models
                     cmd.Parameters["@vDay"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@vTime", SqlDbType.VarChar, 5));
                     cmd.Parameters["@vTime"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@datee", SqlDbType.Date));
+                    cmd.Parameters.Add(new SqlParameter("@datee", SqlDbType.DateTime));
                     cmd.Parameters["@datee"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@prid", SqlDbType.Int));
+                    cmd.Parameters["@prid"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@prnum", SqlDbType.VarChar, 30));
+                    cmd.Parameters["@prnum"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@prname", SqlDbType.VarChar, 100));
+                    cmd.Parameters["@prname"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.Int));
                     cmd.Parameters["@flag"].Direction = ParameterDirection.Output;
 
@@ -64,7 +72,8 @@ namespace PrisonerMS.Models
                     Prisoner tPrisoner = new Prisoner();
                     tPrisoner.PrisonerID = id;
                     tPrisoner.PrisonerNo = (string)cmd.Parameters["@pnum"].Value;
-                    tPrisoner.FullName = (string)cmd.Parameters["@fname"].Value;
+                    tPrisoner.FirstName = (string)cmd.Parameters["@fName"].Value;
+                    tPrisoner.LastName = (string)cmd.Parameters["@lName"].Value;
                     tPrisoner.Gender = Convert.ToChar(cmd.Parameters["@gen"].Value);
                     tPrisoner.FatherName = (string)cmd.Parameters["@faName"].Value;
                     tPrisoner.CNIC = (string)cmd.Parameters["@cnic"].Value;
@@ -72,6 +81,10 @@ namespace PrisonerMS.Models
                     tPrisoner.DateBirth = (string)cmd.Parameters["@dateb"].Value;
                     tPrisoner.VisitingDay = (string)cmd.Parameters["@vDay"].Value;
                     tPrisoner.VisitingTime = (string)cmd.Parameters["@vTime"].Value;
+                    tPrisoner.Prison = new Prison();
+                    tPrisoner.Prison.PrisonID = (int)cmd.Parameters["@prid"].Value;
+                    tPrisoner.Prison.PNumber = (string)cmd.Parameters["@prnum"].Value;
+                    tPrisoner.Prison.Name = (string)cmd.Parameters["@prname"].Value;
 
                     //DateTime dt = (DateTime)cmd.Parameters["@datee"].Value;
                     //string s = dt.ToString("dd/MM/yyyy");
@@ -87,7 +100,7 @@ namespace PrisonerMS.Models
             }
         }
 
-        public static List<Prisoner> GetAllPrisoners()
+        public static List<Prisoner> GetAllPrisonPrisoners(int id)
         {
             using (SqlConnection ServerConnection = new SqlConnection(ConnectionString))
             {
@@ -98,7 +111,7 @@ namespace PrisonerMS.Models
                 {
                     SqlCommand cmd = new SqlCommand();
                     DataTable sqlPrisoners = new DataTable();
-                    SqlDataAdapter Data = new SqlDataAdapter("Select PID From [Prisoner]", ServerConnection);
+                    SqlDataAdapter Data = new SqlDataAdapter("Select PID From [Prisoner] where PrisonID = " + id, ServerConnection);
                     Data.Fill(sqlPrisoners);
 
                     foreach (DataRow row in sqlPrisoners.Rows)

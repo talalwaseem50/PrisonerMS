@@ -1,0 +1,23 @@
+﻿@model PrisonerMS.Models.Allergy
+
+<div>
+    <div class="card rounded px-5 py-2">
+        <div class="card-body">
+            <form action="EditAllergyForm" class="form needs-validation" role="form" autocomplete="off" method="post">
+
+                <input type="hidden" class="form-control" id="C_AID" name="AllergyID" value="@Model.AllergyID" required />
+
+                <div class="form-group">
+                    <label for="C_Desc">Description</label>
+                    <input type="text" class="form-control" placeholder="Enter Description" id="C_Desc" name="Desc" value="@Model.Desc" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-success btn-block">Done</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

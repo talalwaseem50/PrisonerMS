@@ -34,19 +34,18 @@
         <div class="card-body">
             @*<img class="float-right" src="">*@
 
-            <h3> Tim Corey </h3>
-            <p><strong>Number: </strong>5555</p>
-            <p><strong>Gender: </strong>M</p>
-            <p><strong>Father Name: </strong>Corey Jack</p>
-            <p><strong>CNIC: </strong>35202121212</p>
-            <p><strong>Adress: </strong>cejcjnejckkdmckknfknc</p>
-            <p><strong>Date of Birth: </strong>11/11/1998</p>
-            <p><strong>Visiting Day: </strong>Monday</p>
-            <p><strong>Visiting Time: </strong>11:00</p>
-            <p><strong>Cell Number: </strong>42D</p>
-            <p><strong>Prison Number: </strong>65</p>
-            <p><strong>Prison Name: </strong>Lahore District Jail</p>
-            <p><strong>Entry Date: </strong>Date Entry</p>
+            <h3>@Model.Item1.FirstName @Model.Item1.LastName</h3>
+            <p><strong>Number: </strong>@Model.Item1.PrisonerNo</p>
+            <p><strong>Gender: </strong>@Model.Item1.Gender</p>
+            <p><strong>Father Name: </strong>@Model.Item1.FatherName</p>
+            <p><strong>CNIC: </strong>@Model.Item1.CNIC</p>
+            <p><strong>Adress: </strong>@Model.Item1.Address</p>
+            <p><strong>Date of Birth: </strong>@Model.Item1.DateBirth</p>
+            <p><strong>Visiting Day: </strong>@Model.Item1.VisitingDay</p>
+            <p><strong>Visiting Time: </strong>@Model.Item1.VisitingTime</p>
+            <p><strong>Prison Number: </strong>@Model.Item1.Prison.PNumber</p>
+            <p><strong>Prison Name: </strong>@Model.Item1.Prison.Name</p>
+            <p><strong>Entry Date: </strong>@Model.Item1.DateEntry</p>
 
         </div>
     </div>

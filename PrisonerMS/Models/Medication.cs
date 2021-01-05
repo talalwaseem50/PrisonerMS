@@ -10,6 +10,7 @@ namespace PrisonerMS.Models
         public int MedicationID { get; set; }
         public string Desc { get; set; }
         public string EntryDate { get; set; }
-        public Medication MedicationR { get; set; }
+        public string EntryTime { get; set; }
+        public Medical Medical { get; set; }
     }
 }

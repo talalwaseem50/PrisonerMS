@@ -15,6 +15,8 @@ namespace PrisonerMS.Models
         public string Address { get; set; }
         public string Relation { get; set; }
         public string VisitDate { get; set; }
+        public string VisitTime { get; set; }
         public Prisoner Prisoner { get; set; }
+        public Prison Prison { get; set; }
     }
 }

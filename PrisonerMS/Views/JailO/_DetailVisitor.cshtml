@@ -12,8 +12,10 @@
             <p><strong>Adress: </strong>@Model.Address</p>
             <p><strong>Relation: </strong>@Model.Relation</p>
             <p><strong>Visit Date: </strong>@Model.VisitDate</p>
+            <p><strong>Visit Time: </strong>@Model.VisitTime</p>
             <p><strong>Prisoner Number: </strong>@Model.Prisoner.PrisonerNo</p>
-            <p><strong>Prisoner Name: </strong>@Model.Prisoner.FullName</p>
+            <p><strong>Prisoner Name: </strong>@Model.Prisoner.FirstName</p>
+            <p><strong>Prisoner Name: </strong>@Model.Prisoner.LastName</p>
 
             <button type="button" class="btn btn-info" onclick="location.href = '../../JailO/PrisonerDetails?id=@Model.Prisoner.PrisonerID';">View Prisoner</button>
         </div>

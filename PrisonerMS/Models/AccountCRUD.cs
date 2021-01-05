@@ -36,6 +36,8 @@ namespace PrisonerMS.Models
                     cmd.Parameters["@acc_type"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@fname", SqlDbType.VarChar, 30));
                     cmd.Parameters["@fname"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@prid", SqlDbType.Int));
+                    cmd.Parameters["@prid"].Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();  //run procedure
                 }
                 catch (SqlException ex)
@@ -55,6 +57,8 @@ namespace PrisonerMS.Models
                     retAcc.UserID = (int)cmd.Parameters["@uid"].Value;
                     retAcc.AccType = (string)cmd.Parameters["@acc_type"].Value;
                     retAcc.FullName = (string)cmd.Parameters["@fname"].Value;
+                    retAcc.Prison = new Prison();
+                    retAcc.Prison.PrisonID = (int)cmd.Parameters["@prid"].Value;
                     return retAcc;
                 }
                 else

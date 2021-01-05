@@ -15,5 +15,6 @@ namespace PrisonerMS.Models
         public string Password { get; set; }
         public string AccType { get; set; }
         public string DateJoined { get; set; }
+        public Prison Prison { get; set; }
     }
 }

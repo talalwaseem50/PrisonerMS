@@ -38,14 +38,18 @@ namespace PrisonerMS.Models
                     cmd.Parameters["@vaddress"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@relation", SqlDbType.VarChar, 20));
                     cmd.Parameters["@relation"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@dateV", SqlDbType.Date));
+                    cmd.Parameters.Add(new SqlParameter("@dateV", SqlDbType.DateTime));
                     cmd.Parameters["@dateV"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@pid", SqlDbType.Int));
                     cmd.Parameters["@pid"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@pno", SqlDbType.VarChar, 30));
                     cmd.Parameters["@pno"].Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add(new SqlParameter("@pname", SqlDbType.VarChar, 30));
-                    cmd.Parameters["@pname"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@pfname", SqlDbType.VarChar, 30));
+                    cmd.Parameters["@pfname"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@plname", SqlDbType.VarChar, 30));
+                    cmd.Parameters["@plname"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@prid", SqlDbType.Int));
+                    cmd.Parameters["@prid"].Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.Int));
                     cmd.Parameters["@flag"].Direction = ParameterDirection.Output;
 
@@ -70,10 +74,14 @@ namespace PrisonerMS.Models
                     v1.Address = (string)cmd.Parameters["@vaddress"].Value;
                     v1.Relation = (string)cmd.Parameters["@relation"].Value;
                     v1.VisitDate = ((DateTime)cmd.Parameters["@dateV"].Value).ToString("dd/MM/yyyy");
+                    v1.VisitTime = ((DateTime)cmd.Parameters["@dateV"].Value).ToString("HH:mm:ss");
                     v1.Prisoner = new Prisoner();
                     v1.Prisoner.PrisonerID = Convert.ToInt32(cmd.Parameters["@pid"].Value);
                     v1.Prisoner.PrisonerNo = (string)cmd.Parameters["@pno"].Value;
-                    v1.Prisoner.FullName = (string)cmd.Parameters["@pname"].Value;
+                    v1.Prisoner.FirstName = (string)cmd.Parameters["@pfname"].Value;
+                    v1.Prisoner.LastName = (string)cmd.Parameters["@plname"].Value;
+                    v1.Prison = new Prison();
+                    v1.Prison.PrisonID = (int)cmd.Parameters["@prid"].Value;
                     return v1;
                 }
                 else
@@ -82,7 +90,7 @@ namespace PrisonerMS.Models
         }
 
 
-        public static List<Visitor> GetAllVisitors()
+        public static List<Visitor> GetAllPrisonVisitors(int id)
         {
             using (SqlConnection ServerConnection = new SqlConnection(ConnectionString))
             {
@@ -93,7 +101,7 @@ namespace PrisonerMS.Models
                 {
                     SqlCommand cmd = new SqlCommand();
                     DataTable sqlPrisoners = new DataTable();
-                    SqlDataAdapter Data = new SqlDataAdapter("Select VID From [Visitor]", ServerConnection);
+                    SqlDataAdapter Data = new SqlDataAdapter("Select VID From [Visitor] where PrisonID = " + id, ServerConnection);
                     Data.Fill(sqlPrisoners);
 
                     foreach (DataRow row in sqlPrisoners.Rows)
@@ -139,6 +147,7 @@ namespace PrisonerMS.Models
                     cmd.Parameters.Add(new SqlParameter("@vaddress", visitor.Address));
                     cmd.Parameters.Add(new SqlParameter("@relation", visitor.Relation));
                     cmd.Parameters.Add(new SqlParameter("@pid", visitor.Prisoner.PrisonerID));
+                    cmd.Parameters.Add(new SqlParameter("@prid", visitor.Prison.PrisonID));
                     
                     //passing output para
                     cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.Int));

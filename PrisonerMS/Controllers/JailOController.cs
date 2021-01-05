@@ -17,7 +17,7 @@ namespace PrisonerMS.Controllers
 
         public ActionResult Prisoners()
         {
-            return View(PrisonerCRUD.GetAllPrisoners());
+            return View(PrisonerCRUD.GetAllPrisonPrisoners((int)Session["PrisonID"]));
         }
 
         public ActionResult Complaints()
@@ -27,7 +27,7 @@ namespace PrisonerMS.Controllers
 
         public ActionResult Visitors()
         {
-            return View(VisitorCRUD.GetAllVisitors());
+            return View(VisitorCRUD.GetAllPrisonVisitors((int)Session["PrisonID"]));
         }
 
         public ActionResult Transfers()
@@ -35,9 +35,9 @@ namespace PrisonerMS.Controllers
             return View(TransferCRUD.GetAllTransfers());
         }
 
-        public ActionResult PrisonerDetails()
+        public ActionResult PrisonerDetails(int id)
         {
-            return View(new Tuple<Prisoner, List<Punishment>>(PrisonerCRUD.GetPrisoner(1), PunishmentCRUD.GetAllPunishments()));
+            return View(new Tuple<Prisoner, List<Punishment>>(PrisonerCRUD.GetPrisoner(id), PunishmentCRUD.GetAllPunishments()));
         }
 
         public ActionResult UserInfo()
@@ -62,10 +62,20 @@ namespace PrisonerMS.Controllers
             return PartialView("_MedicalRecords", new Tuple<List<Medical>, List<Medication>, List<Allergy>>(mrList, mList, aList));
         }
 
+
         //Detail
         public ActionResult DetailVisitor(int id)
         {
             return PartialView("_DetailVisitor", VisitorCRUD.GetVisitor(id));
+        }
+
+        public ActionResult DetailMedical(int id)
+        {
+            Medical m = MedicalCRUD.GetMedical(id);
+            List<Medication> mList = MedicationCRUD.GetAllMedicalMedications(id);
+            List<Allergy> aList = AllergyCRUD.GetAllMedicalAllergys(id);
+
+            return PartialView("_DetailMedical", new Tuple<Medical, List<Medication>, List<Allergy>>(m, mList, aList));
         }
 
 
@@ -92,6 +102,16 @@ namespace PrisonerMS.Controllers
             return PartialView("_EditMedical", MedicalCRUD.GetMedical(id));
         }
 
+        public ActionResult EditMedication(int id)
+        {
+            return PartialView("_EditMedication", MedicationCRUD.GetMedication(id));
+        }
+
+        public ActionResult EditAllergy(int id)
+        {
+            return PartialView("_EditAllergy", AllergyCRUD.GetAllergy(id));
+        }
+
 
         //Add
         public ActionResult AddComplaint(int id)
@@ -101,12 +121,22 @@ namespace PrisonerMS.Controllers
 
         public ActionResult AddVisitor(int id)
         {
-            return PartialView("_AddVisitor", 1);
+            return PartialView("_AddVisitor", id);
         }
 
         public ActionResult AddTransfer(int id)
         {
             return PartialView("_AddTransfer", 1);
+        }
+
+        public ActionResult AddMedication(int id)
+        {
+            return PartialView("_AddMedication", id);
+        }
+
+        public ActionResult AddAllergy(int id)
+        {
+            return PartialView("_AddAllergy", id);
         }
 
 
@@ -123,6 +153,8 @@ namespace PrisonerMS.Controllers
             visitor.Relation = collection["Relation"];
             visitor.Prisoner = new Prisoner();
             visitor.Prisoner.PrisonerID = Int32.Parse(collection["PrisonerID"]);
+            visitor.Prison = new Prison();
+            visitor.Prison.PrisonID = (int)Session["PrisonID"];
 
             if (VisitorCRUD.InsertVisitor(visitor))
                 return Content("<script>alert('Visitor Added Successfully.');window.location.href=document.referrer;</script>");
@@ -228,7 +260,6 @@ namespace PrisonerMS.Controllers
             Medical medical = new Medical();
             medical.Symptoms = collection["Symptoms"];
             medical.Diagnosis = collection["Diagnosis"];
-            medical.Prisoner = new Prisoner();
             medical.MedicalID = Int32.Parse(collection["MedicalID"]);
 
             if (MedicalCRUD.UpdateMedical(medical))
@@ -236,6 +267,62 @@ namespace PrisonerMS.Controllers
             else
                 return Content("<script>alert('Medical could not be Updated');window.location.href=document.referrer</script>");
         }
+
+        [HttpPost]
+        public ActionResult AddMedicationForm(FormCollection collection)
+        {
+            Medication m = new Medication();
+            m.Desc = collection["Desc"];
+            m.Medical = new Medical();
+            m.Medical.MedicalID = Int32.Parse(collection["MedicalID"]);
+
+            if (MedicationCRUD.InsertMedication(m))
+                return Content("<script>alert('Medication Added Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Medication could not be Added');window.location.href=document.referrer</script>");
+        }
+
+        [HttpPost]
+        public ActionResult EditMedicationForm(FormCollection collection)
+        {
+            Medication m = new Medication();
+            m.Desc = collection["Desc"];
+            m.MedicationID = Int32.Parse(collection["MedicationID"]);
+
+            if (MedicationCRUD.UpdateMedication(m))
+                return Content("<script>alert('Medication Updated Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Medication could not be Updated');window.location.href=document.referrer</script>");
+        }
+
+        [HttpPost]
+        public ActionResult AddAllergyForm(FormCollection collection)
+        {
+            Allergy a = new Allergy();
+            a.Desc = collection["Desc"];
+            a.Medical = new Medical();
+            a.Medical.MedicalID = Int32.Parse(collection["MedicalID"]);
+
+            if (AllergyCRUD.InsertAllergy(a))
+                return Content("<script>alert('Allergy Added Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Allergy could not be Added');window.location.href=document.referrer</script>");
+        }
+
+        [HttpPost]
+        public ActionResult EditAllergyForm(FormCollection collection)
+        {
+            Allergy a = new Allergy();
+            a.Desc = collection["Desc"];
+            a.AllergyID = Int32.Parse(collection["AllergyID"]);
+
+            if (AllergyCRUD.UpdateAllergy(a))
+                return Content("<script>alert('Allergy Updated Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Allergy could not be Updated');window.location.href=document.referrer</script>");
+        }
+
+
 
 
 
@@ -300,6 +387,22 @@ namespace PrisonerMS.Controllers
                 return Content("<script>alert('Medical Record Deleted Successfully.');window.location.href=document.referrer;</script>");
             else
                 return Content("<script>alert('Medical Record could not be Deleted.');window.location.href=document.referrer</script>");
+        }
+
+        public ActionResult RemoveMedication(int id)
+        {
+            if (MedicationCRUD.DeleteMedication(id))
+                return Content("<script>alert('Medication Deleted Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Medication could not be Deleted.');window.location.href=document.referrer</script>");
+        }
+
+        public ActionResult RemoveAllergy(int id)
+        {
+            if (AllergyCRUD.DeleteAllergy(id))
+                return Content("<script>alert('Allergy Deleted Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Allergy Record could not be Deleted.');window.location.href=document.referrer</script>");
         }
     }
 }

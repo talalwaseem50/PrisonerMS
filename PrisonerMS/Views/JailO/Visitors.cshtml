@@ -53,6 +53,7 @@
                     <th>CNIC</th>
                     <th>Relation</th>
                     <th>Date</th>
+                    <th>Time</th>
                     <th>Priosner No</th>
                     <th>Prisoner Name</th>
                     <th>Edit</th>
@@ -66,8 +67,9 @@
                         <td>@item.CNIC</td>
                         <td>@item.Relation</td>
                         <td>@item.VisitDate</td>
+                        <td>@item.VisitTime</td>
                         <td><a href=" ../../JailO/PrisonerDetails?id=@item.Prisoner.PrisonerID">@item.Prisoner.PrisonerNo</a></td>
-                        <td>@item.Prisoner.FullName</td>
+                        <td>@item.Prisoner.FirstName @item.Prisoner.LastName</td>
                         <td><a href="#" class="btn btn-success" onclick="EditVisitorfunction(@item.VisitorRecordID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
                         <td><a href=" ../../JailO/RemoveVisitor?id=@item.VisitorRecordID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
                     </tr>
