@@ -300,7 +300,6 @@
     <Content Include="Views\JailO\_ComplaintStatus.cshtml" />
     <Content Include="Views\Jailer\Complaints.cshtml" />
     <Content Include="Views\Jailer\_ComplaintStatus.cshtml" />
-    <Content Include="Views\Jailer\PrisonerDetails.cshtml" />
     <Content Include="Views\JailO\_AddVisitor.cshtml" />
     <Content Include="Views\JailO\_AddComplaint.cshtml" />
     <Content Include="Views\JailO\_AddTransfer.cshtml" />
@@ -321,6 +320,11 @@
     <Content Include="Views\JailO\_AddAllergy.cshtml" />
     <Content Include="Views\JailO\_DetailMedical.cshtml" />
     <Content Include="Views\JailO\_DetailTransfer.cshtml" />
+    <Content Include="Views\Jailer\_DetailTransfer.cshtml" />
+    <Content Include="Views\Jailer\PrisonerDetails.cshtml" />
+    <Content Include="Views\Jailer\_DetailMedical.cshtml" />
+    <Content Include="Views\Jailer\_MedicalRecords.cshtml" />
+    <Content Include="Views\JailO\PrisonInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

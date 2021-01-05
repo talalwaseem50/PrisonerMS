@@ -135,7 +135,7 @@
         <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Complaint History</button>
         <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Transfer History</button>
         <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Visitor History</button>
-        <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="collapse" data-target="#demo" onclick="LoadMedicalRecordsfunction(1)">View Medical History</button>
+        <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="collapse" data-target="#demo" onclick="LoadMedicalRecordsfunction(@Model.Item1.PrisonerID)">View Medical History</button>
         <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddMedicalModal">Add Medical</button>
     </div>
 
@@ -150,7 +150,6 @@
     var LoadMedicalRecordsfunction = function (pid) {
 
         var url = "/JailO/MedicalRecords?id=" + pid;
-        console.log("Hello world!");
         $("#demo").load(url);
     }
 

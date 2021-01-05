@@ -1,0 +1,23 @@
+﻿@model PrisonerMS.Models.Transfer
+
+<div>
+    <div class="card rounded px-5 py-2">
+        <div class="card-body">
+
+            <h3> @Model.TransferID </h3>
+            <p><strong>Type: </strong>@Model.Type</p>
+            <p><strong>Type Number: </strong>@Model.TypeNumber</p>
+            <p><strong>Description: </strong>@Model.Description</p>
+            <p><strong>Status: </strong>@Model.Status</p>
+            <p><strong>Entry Date: </strong>@Model.EntryDate</p>
+            <p><strong>Entry Time: </strong>@Model.EntryTime</p>
+            <p><strong>Prisoner Number: </strong>@Model.Prisoner.PrisonerNo</p>
+            <p><strong>Prisoner First Name: </strong>@Model.Prisoner.FirstName</p>
+            <p><strong>Prisoner Last Name: </strong>@Model.Prisoner.LastName</p>
+            <p><strong>Prison Number: </strong>@Model.Prison.PNumber</p>
+            <p><strong>Prison Name: </strong>@Model.Prison.Name</p>
+
+            <button type="button" class="btn btn-info" onclick="location.href = '../../Jailer/PrisonerDetails?id=@Model.Prisoner.PrisonerID';">View Prisoner</button>
+        </div>
+    </div>
+</div>

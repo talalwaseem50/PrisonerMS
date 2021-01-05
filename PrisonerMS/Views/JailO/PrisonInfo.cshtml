@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Prison Info";
+}
+
+@section CustomHeader{
+    <nav class="navbar navbar-expand-sm bg-light">
+
+        <a class="navbar-brand" href="#">PMS</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#"> Jail Officer </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            @if (Session["FullName"] != null)
+            {
+                <p class="navbar-text"> Welcome, @Session["FullName"].ToString() </p>
+            }
+            <li class="nav-item ml-auto">
+                <a class="nav-link" href="@Url.Action("Index", "Home")"> Logout </a>
+            </li>
+        </ul>
+    </nav>
+}
+
+
+<div class="row">
+    <div class="col-2">
+        <div class="sidenav">
+            <a href="@Url.Action("DashBoard", "JailO")">DashBoard</a>
+            <a href="@Url.Action("Prisoners", "JailO")">Prisoners</a>
+            <a href="@Url.Action("Complaints", "JailO")">Complaints</a>
+            <a href="@Url.Action("Visitors", "JailO")">Visitors</a>
+            <a href="@Url.Action("Transfers", "JailO")">Transfers</a>
+            <a href="@Url.Action("PrisonInfo", "JailO")">Prison Info</a>
+            <a href="@Url.Action("UserInfo", "JailO")">Profile</a>
+        </div>
+    </div>
+
+
+    <div class="container body-content">
+        <h3 class="divheading text-center">Visitors</h3>
+        <hr class="hunderline" />
+
+        <table id="example" class="table table-striped table-bordered table-hover" cellspacing="0">
+            <tr>
+                <th>Cell Number</th>
+                <th>Prisoner Number</th>
+                <th>Prisoner Name</th>
+            </tr>
+            <tr>
+                <td>25D</td>
+                <td>5555</td>
+                <td>Muhammad Sikandar</td>
+            </tr>
+            <tr>
+                <td>26D</td>
+                <td>6666</td>
+                <td>Asad Khalil</td>
+            </tr>
+            <tr>
+                <td>27D</td>
+                <td>7777</td>
+                <td>Hamza Jawad</td>
+            </tr>
+        </table>
+
+    </div>
+</div>

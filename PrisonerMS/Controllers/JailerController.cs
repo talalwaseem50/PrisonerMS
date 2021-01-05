@@ -28,9 +28,9 @@ namespace PrisonerMS.Controllers
             return View(TransferCRUD.GetAllPrisonTransfers((int)Session["PrisonID"]));
         }
 
-        public ActionResult PrisonerDetails()
+        public ActionResult PrisonerDetails(int id)
         {
-            return View(new Tuple<Prisoner, List<Punishment>>(new Prisoner(), PunishmentCRUD.GetAllPunishments()));
+            return View(new Tuple<Prisoner, List<Punishment>>(PrisonerCRUD.GetPrisoner(id), PunishmentCRUD.GetAllPunishments()));
         }
 
         public ActionResult UserInfo()
@@ -39,15 +39,36 @@ namespace PrisonerMS.Controllers
         }
 
 
-        //Status
-        public ActionResult ComplaintStatus(int id)
+        //Load Extend
+        public ActionResult MedicalRecords(int id)
         {
-            return PartialView("_ComplaintStatus", id);
+            List<Medical> mrList = MedicalCRUD.GetAllPrisonerMedicals(id);
+            List<Medication> mList = new List<Medication>();
+            List<Allergy> aList = new List<Allergy>();
+
+            foreach (Medical mr in mrList)
+            {
+                mList.AddRange(MedicationCRUD.GetAllMedicalMedications(mr.MedicalID));
+                aList.AddRange(AllergyCRUD.GetAllMedicalAllergys(mr.MedicalID));
+            }
+
+            return PartialView("_MedicalRecords", new Tuple<List<Medical>, List<Medication>, List<Allergy>>(mrList, mList, aList));
         }
 
-        public ActionResult StatusTransfer(int id, int p)
+
+        //Detail
+        public ActionResult DetailTransfer(int id)
         {
-            return PartialView("_StatusTransfer", new Tuple<int, int>(id, p));
+            return PartialView("_DetailTransfer", TransferCRUD.GetTransfer(id));
+        }
+
+        public ActionResult DetailMedical(int id)
+        {
+            Medical m = MedicalCRUD.GetMedical(id);
+            List<Medication> mList = MedicationCRUD.GetAllMedicalMedications(id);
+            List<Allergy> aList = AllergyCRUD.GetAllMedicalAllergys(id);
+
+            return PartialView("_DetailMedical", new Tuple<Medical, List<Medication>, List<Allergy>>(m, mList, aList));
         }
 
 
@@ -63,6 +84,19 @@ namespace PrisonerMS.Controllers
             //else
             //    return Content("<script>alert('Profile Could not be Updated');window.location.href=document.referrer</script>");
         }
-    
+
+
+        //Status
+        public ActionResult ComplaintStatus(int id)
+        {
+            return PartialView("_ComplaintStatus", id);
+        }
+
+        public ActionResult StatusTransfer(int id, int p)
+        {
+            return PartialView("_StatusTransfer", new Tuple<int, int>(id, p));
+        }
+
+
     }
 }

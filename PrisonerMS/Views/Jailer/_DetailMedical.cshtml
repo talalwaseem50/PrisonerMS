@@ -1,0 +1,55 @@
+﻿@model Tuple<PrisonerMS.Models.Medical, List<PrisonerMS.Models.Medication>, List<PrisonerMS.Models.Allergy>>
+
+<div>
+    <div class="card rounded px-2 py-2">
+        <div class="card-body">
+
+            <h3>Number: @Model.Item1.MedicalID</h3>
+            <p><strong>Symptoms: </strong>@Model.Item1.Symptoms</p>
+            <p><strong>Diagnosis: </strong>@Model.Item1.Diagnosis</p>
+            <p><strong>Entry Date: </strong>@Model.Item1.EntryDate</p>
+            <p><strong>Entry Time: </strong>@Model.Item1.EntryTime</p>
+
+            @if (Model != null)
+            {
+                if (Model.Item2 != null && Model.Item2.Count != 0)
+                {
+                    <table id="example1" class="table table-striped table-bordered table-hover" cellspacing="0">
+                        <tr>
+                            <th>Medication</th>
+                            <th>Entry Date</th>
+                        </tr>
+                        @foreach (var item in Model.Item2)
+                        {
+                            <tr>
+                                <td>@item.Desc</td>
+                                <td>@item.EntryDate</td>
+                            </tr>
+                        }
+                    </table>
+                }
+            }
+
+            @if (Model != null)
+            {
+                if (Model.Item3 != null && Model.Item3.Count != 0)
+                {
+                    <table id="example2" class="table table-striped table-bordered table-hover" cellspacing="0">
+                        <tr>
+                            <th>Allergy</th>
+                            <th>Entry Date</th>
+                        </tr>
+                        @foreach (var item in Model.Item3)
+                        {
+                            <tr>
+                                <td>@item.Desc</td>
+                                <td>@item.EntryDate</td>
+                            </tr>
+                        }
+                    </table>
+                }
+            }
+
+        </div>
+    </div>
+</div>

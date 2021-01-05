@@ -60,7 +60,7 @@
                     @foreach (var item in Model.Item1)
                     {
                         <tr>
-                            <td><a href=" ../../Jailer/ComplaintDetails?id=@item.ComplaintID">@item.ComplaintID</a></td>
+                            <td>@item.ComplaintID</td>@*<a href=" ../../Jailer/ComplaintDetails?id=@item.ComplaintID">@item.ComplaintID</a></td>*@
                             <td>@item.Status</td>
                             <td>@item.Description</td>
                             <td>@item.DateRegister</td>
@@ -125,6 +125,19 @@
             }
         }
 
+        <div class="modal fade" id="detailTransferModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title divheading col-12 text-center">Transfer Detail</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="detailTransferModalBodyDiv1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="changeTransferStatusModal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -142,6 +155,16 @@
 </div>
 
 <script>
+
+    var DetailTransferfunction = function (tid) {
+
+        var url = "/Jailer/DetailTransfer?id=" + tid;
+
+        $("#detailTransferModalBodyDiv1").load(url, function () {
+            $("#detailTransferModal").modal("show");
+
+        })
+    }
 
     var ComplaintStatusfunction = function (cid) {
 

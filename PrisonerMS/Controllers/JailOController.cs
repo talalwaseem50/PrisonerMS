@@ -35,6 +35,11 @@ namespace PrisonerMS.Controllers
             return View(TransferCRUD.GetAllPrisonTransfers((int)Session["PrisonID"]));
         }
 
+        public ActionResult PrisonInfo()
+        {
+            return View();
+        }
+
         public ActionResult PrisonerDetails(int id)
         {
             return View(new Tuple<Prisoner, List<Punishment>>(PrisonerCRUD.GetPrisoner(id), PunishmentCRUD.GetAllPunishments()));
@@ -49,7 +54,7 @@ namespace PrisonerMS.Controllers
         //Load Extend
         public ActionResult MedicalRecords(int id)
         {
-            List<Medical> mrList = MedicalCRUD.GetAllPrisonerMedicals(1);
+            List<Medical> mrList = MedicalCRUD.GetAllPrisonerMedicals(id);
             List<Medication> mList = new List<Medication>();
             List<Allergy> aList = new List<Allergy>();
 
@@ -316,9 +321,6 @@ namespace PrisonerMS.Controllers
             else
                 return Content("<script>alert('Allergy could not be Updated');window.location.href=document.referrer</script>");
         }
-
-
-
 
 
         //Status

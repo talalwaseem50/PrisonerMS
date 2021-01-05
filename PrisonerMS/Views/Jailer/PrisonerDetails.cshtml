@@ -11,7 +11,7 @@
         <a class="navbar-brand" href="#">PMS</a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#"> Jailer </a>
+                <a class="nav-link" href="#"> Jail Officer </a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -34,24 +34,26 @@
         <div class="card-body">
             @*<img class="float-right" src="">*@
 
-            <h3>Tim Corey </h3>
-            <p><strong>Number: </strong>5555</p>
-            <p><strong>Gender: </strong>M</p>
-            <p><strong>Father Name: </strong>Corey Jack</p>
-            <p><strong>CNIC: </strong>35202121212</p>
-            <p><strong>Adress: </strong>cejcjnejckkdmckknfknc</p>
-            <p><strong>Date of Birth: </strong>11/11/1998</p>
-            <p><strong>Visiting Day: </strong>Monday</p>
-            <p><strong>Visiting Time: </strong>11:00</p>
-            <p><strong>Prison Number: </strong>65</p>
-            <p><strong>Prison Name: </strong>Lahore District Jail</p>
+            <h3>@Model.Item1.FirstName @Model.Item1.LastName</h3>
+            <p><strong>Number: </strong>@Model.Item1.PrisonerNo</p>
+            <p><strong>Gender: </strong>@Model.Item1.Gender</p>
+            <p><strong>Father Name: </strong>@Model.Item1.FatherName</p>
+            <p><strong>CNIC: </strong>@Model.Item1.CNIC</p>
+            <p><strong>Adress: </strong>@Model.Item1.Address</p>
+            <p><strong>Date of Birth: </strong>@Model.Item1.DateBirth</p>
+            <p><strong>Visiting Day: </strong>@Model.Item1.VisitingDay</p>
+            <p><strong>Visiting Time: </strong>@Model.Item1.VisitingTime</p>
+            <p><strong>Prison Number: </strong>@Model.Item1.Prison.PNumber</p>
+            <p><strong>Prison Name: </strong>@Model.Item1.Prison.Name</p>
+            <p><strong>Entry Date: </strong>@Model.Item1.DateEntry</p>
+
         </div>
     </div>
 
-    <h3 class="divheading text-center">Punishment History</h3>
+    <h3 class="divheading text-center my-2">Punishment History</h3>
     <hr class="hunderline" />
 
-    <div class="card rounded px-5 py-2">
+    <div class="card rounded px-2 py-2">
         <div class="card-body">
 
             @if (Model != null)
@@ -66,8 +68,6 @@
                             <th>Execution Date</th>
                             <th>Notes</th>
                             <th>Prison Number</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
                         </tr>
                         @foreach (var item in Model.Item2)
                         {
@@ -78,18 +78,33 @@
                                 <td>@item.DateExecution</td>
                                 <td>@item.Notes</td>
                                 <td>@item.PrisonNumber</td>
-                                <td><a href="#" class="btn btn-success" onclick="EditVisitorfunction(@item.PunishmentID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
-                                <td><a href=" ../../JailO/RemovePunishment?id=@item.PunishmentID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
                             </tr>
                         }
                     </table>
                 }
             }
-
-
         </div>
     </div>
-    
-    <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Complaint History</button>
-    <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Transfer History</button>
+
+    <div class="py-3">
+        <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Complaint History</button>
+        <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Transfer History</button>
+        <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="modal" data-target="#AddPrisonerModal">View Visitor History</button>
+        <button type="button" class="btn btn-info btn-lg mr-auto" data-toggle="collapse" data-target="#demo" onclick="LoadMedicalRecordsfunction(@Model.Item1.PrisonerID)">View Medical History</button>
+    </div>
+
+
+    <div id="demo" class="collapse">
+    </div>
+
 </div>
+
+<script>
+
+    var LoadMedicalRecordsfunction = function (pid) {
+
+        var url = "/Jailer/MedicalRecords?id=" + pid;
+        $("#demo").load(url);
+    }
+
+</script>
