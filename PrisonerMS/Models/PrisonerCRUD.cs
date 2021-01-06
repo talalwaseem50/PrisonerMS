@@ -111,7 +111,7 @@ namespace PrisonerMS.Models
                 {
                     SqlCommand cmd = new SqlCommand();
                     DataTable sqlPrisoners = new DataTable();
-                    SqlDataAdapter Data = new SqlDataAdapter("Select PID From [Prisoner] where PrisonID = " + id, ServerConnection);
+                    SqlDataAdapter Data = new SqlDataAdapter("Select PID From [Prisoner] where PrisonID = " + id + "Order by FName", ServerConnection);
                     Data.Fill(sqlPrisoners);
 
                     foreach (DataRow row in sqlPrisoners.Rows)
