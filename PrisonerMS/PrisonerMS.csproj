@@ -129,6 +129,7 @@
     <Compile Include="Models\AccountCRUD.cs" />
     <Compile Include="Models\Allergy.cs" />
     <Compile Include="Models\AllergyCRUD.cs" />
+    <Compile Include="Models\Cell.cs" />
     <Compile Include="Models\Complaint.cs" />
     <Compile Include="Models\ComplaintCRUD.cs" />
     <Compile Include="Models\Medical.cs" />

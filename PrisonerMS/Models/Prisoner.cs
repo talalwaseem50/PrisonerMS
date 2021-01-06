@@ -19,6 +19,7 @@ namespace PrisonerMS.Models
         public string VisitingDay { get; set; }
         public string VisitingTime { get; set; }
         public string DateEntry { get; set; }
+        public Cell Cell { get; set; }
         public Prison Prison { get; set; }
     }
 }

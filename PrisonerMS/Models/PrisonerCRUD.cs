@@ -81,6 +81,9 @@ namespace PrisonerMS.Models
                     tPrisoner.DateBirth = (string)cmd.Parameters["@dateb"].Value;
                     tPrisoner.VisitingDay = (string)cmd.Parameters["@vDay"].Value;
                     tPrisoner.VisitingTime = (string)cmd.Parameters["@vTime"].Value;
+                    tPrisoner.Cell = new Cell();
+                    tPrisoner.Cell.CellID = 1;
+                    tPrisoner.Cell.CellNo = "25D";
                     tPrisoner.Prison = new Prison();
                     tPrisoner.Prison.PrisonID = (int)cmd.Parameters["@prid"].Value;
                     tPrisoner.Prison.PNumber = (string)cmd.Parameters["@prnum"].Value;
