@@ -7,8 +7,7 @@ namespace PrisonerMS.Models
 {
     public class TransferCRUD
     {
-        //static string ConnectionString = "data source=DESKTOP-QGDLCC0; database=PMS; integrated security = SSPI;";
-        static string ConnectionString = "Server=tcp:seprojectpmsserver.database.windows.net,1433;Initial Catalog=PMSDB;Persist Security Info=False;User ID=rootpms;Password=rootROOT1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        static string ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["PMS"].ConnectionString;
         //Others
 
         public static Transfer GetTransfer(int id)
