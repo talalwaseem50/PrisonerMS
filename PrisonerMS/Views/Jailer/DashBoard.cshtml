@@ -118,7 +118,7 @@
                             <td>@item.EntryDate</td>
                             <td><a href=" ../../JailO/PrisonerDetails?id=@item.Prisoner.PrisonerID">@item.Prisoner.PrisonerNo</a></td>
                             <td>@item.Prisoner.FirstName @item.Prisoner.LastName</td>
-                            <td><a href="#" class="btn btn-success" onclick="StatusTransferfunction(1, '@item.Type')"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                            <td><a href="#" class="btn btn-success" onclick="StatusTransferfunction(@item.TransferID, '@item.Type')"><i class="fa fa-pencil-square-o"></i> </a> </td>
                         </tr>
                     }
                 </table>

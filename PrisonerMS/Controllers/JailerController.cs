@@ -76,13 +76,14 @@ namespace PrisonerMS.Controllers
         [HttpPost]
         public ActionResult StatusTransferForm(FormCollection collection)
         {
-            string status = collection["TransferStatus"];
+            Transfer transfer = new Transfer();
+            transfer.Status = collection["TransferStatus"];
+            transfer.TransferID = Int32.Parse(collection["TransferID"]);
 
-            return null;
-            //if (AccountCRUD.UpdateUser(myacc))
-            //    return Content("<script>alert('Profile Edited Successfully.');window.location.href=document.referrer;</script>");
-            //else
-            //    return Content("<script>alert('Profile Could not be Updated');window.location.href=document.referrer</script>");
+            if (TransferCRUD.UpdateStatusTransfer(transfer))
+                return Content("<script>alert('Transfer Status Updated Successfully.');window.location.href=document.referrer;</script>");
+            else
+                return Content("<script>alert('Transfer Status could not be Updated');window.location.href=document.referrer</script>");
         }
 
 

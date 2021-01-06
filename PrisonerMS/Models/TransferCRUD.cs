@@ -169,7 +169,7 @@ namespace PrisonerMS.Models
                 {
                     SqlCommand cmd = new SqlCommand();
                     DataTable sqlPrisoners = new DataTable();
-                    SqlDataAdapter Data = new SqlDataAdapter("Select TID From [Transfer] where (PrisonID = " + id + " And TransferStatus = 'Approved') OR (TransferStatus = 'CheckOut' AND TypeNumber = " + GetPrisonNumber(id) + ") OR (TransferStatus = 'CheckOut' AND TypeNumber = '-' AND PrisonID = " + id + ") Order by Date_Entry desc", ServerConnection);
+                    SqlDataAdapter Data = new SqlDataAdapter("Select TID From [Transfer] where (PrisonID = " + id + " And TransferStatus = 'Approved') OR (TransferStatus = 'CheckOut' AND TypeNumber = " + GetPrisonNumber(id) + ") OR (TransferStatus = 'CheckOut' AND TypeNumber = '-' AND PrisonID = " + id + ") OR (PrisonID = " + id + " And TransferStatus = 'Approved Jailer') Order by Date_Entry desc", ServerConnection);
 
                     Data.Fill(sqlPrisoners);
 
