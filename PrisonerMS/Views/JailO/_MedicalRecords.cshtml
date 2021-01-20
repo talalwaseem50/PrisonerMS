@@ -24,21 +24,24 @@
                     </tr>
                     @foreach (var item in Model.Item1)
                     {
-                <tr>
-                    <td><a href="#" onclick="DetailMedicalfunction(@item.MedicalID)">@item.MedicalID</a></td>
-                    <td>@item.Symptoms</td>
-                    <td>@item.Diagnosis</td>
-                    <td>@item.EntryDate</td>
-                    <td><a href="#" class="btn btn-primary" onclick="AddMedicationfunction(@item.MedicalID)"><i class="fa fa-plus"></i> </a> </td>
-                    <td><a href="#" class="btn btn-primary" onclick="AddAllergyfunction(@item.MedicalID)"><i class="fa fa-plus"></i> </a> </td>
-                    <td><a href="#" class="btn btn-success" onclick="EditMedicalfunction(@item.MedicalID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
-                    <td><a href=" ../../JailO/RemoveMedical?id=@item.MedicalID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
-                </tr>
+                        <tr>
+                            <td><a href="#" onclick="DetailMedicalfunction(@item.MedicalID)">@item.MedicalID</a></td>
+                            <td>@item.Symptoms</td>
+                            <td>@item.Diagnosis</td>
+                            <td>@item.EntryDate</td>
+                            <td><a href="#" class="btn btn-primary" onclick="AddMedicationfunction(@item.MedicalID)"><i class="fa fa-plus"></i> </a> </td>
+                            <td><a href="#" class="btn btn-primary" onclick="AddAllergyfunction(@item.MedicalID)"><i class="fa fa-plus"></i> </a> </td>
+                            <td><a href="#" class="btn btn-success" onclick="EditMedicalfunction(@item.MedicalID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
+                            <td><a href=" ../../JailO/RemoveMedical?id=@item.MedicalID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
+                        </tr>
                     }
                 </table>
             }
+            if (Model.Item1 != null && Model.Item1.Count == 0)
+            {
+                <h6 class="text-center">No Entry</h6>
+            }
         }
-
     </div>
 </div>
 
@@ -125,7 +128,12 @@
                         }
                     </table>
                 }
+                if (Model.Item2 != null && Model.Item2.Count == 0)
+                {
+                    <h6 class="text-center">No Entry</h6>
+                }
             }
+
         </div>
 
     </div>
@@ -174,6 +182,10 @@
                             </tr>
                         }
                     </table>
+                }
+                if (Model.Item3 != null && Model.Item3.Count == 0)
+                {
+                    <h6 class="text-center">No Entry</h6>
                 }
             }
         </div>
