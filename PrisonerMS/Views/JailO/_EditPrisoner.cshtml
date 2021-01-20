@@ -3,7 +3,7 @@
 <div>
     <div class="card rounded px-5 py-2">
         <div class="card-body">
-            <form action="UpdatePrisoner" class="form needs-validation" role="form" autocomplete="off" method="post">
+            <form action="ErrorImp" class="form needs-validation" role="form" autocomplete="off" method="post">
 
                 <div class="form-group">
                     <label for="C_PNumber">Number</label>
@@ -12,8 +12,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="C_Name">Full Name</label>
-                    <input type="text" class="form-control" placeholder="Enter Full Name" id="C_Name" name="FullName" value="@Model.FullName" required>
+                    <label for="C_FName">First Name</label>
+                    <input type="text" class="form-control" placeholder="Enter First Name" id="C_FName" name="FirstName" value="@Model.FirstName" required>
+                    <div class="invalid-feedback">Please enter valid input</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="C_LName">Last Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Last Name" id="C_LName" name="LastName" value="@Model.LastName" required>
                     <div class="invalid-feedback">Please enter valid input</div>
                 </div>
 

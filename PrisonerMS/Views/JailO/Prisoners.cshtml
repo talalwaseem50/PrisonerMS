@@ -93,7 +93,7 @@
                         <td><a href="#" class="btn btn-primary" onclick="AddComplaintfunction(@item.PrisonerID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
                         <td><a href="#" class="btn btn-primary" onclick="AddTransferfunction(@item.PrisonerID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
                         <td><a href="#" class="btn btn-success" onclick="EditPrisonerfunction(@item.PrisonerID)"><i class="fa fa-pencil-square-o"></i> </a> </td>
-                        <td><a href=" ../../JailO/RemovePrisoner?id=@item.PrisonerID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
+                        <td><a href="../../Home/ErrorImplementation" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
                     </tr>
                 }
             </table>
@@ -109,7 +109,7 @@
                     <div class="modal-body" id="addPrisonerModalBodyDiv1">
                         <div class="card rounded px-5 py-2">
                             <div class="card-body">
-                                <form action="AddPrisoner" class="form needs-validation" role="form" autocomplete="off" id="Add_CreatePrisoner" method="post">
+                                <form action="ErrorImp" class="form needs-validation" role="form" autocomplete="off" id="Add_CreatePrisoner" method="post">
 
                                     <div class="form-group">
                                         <label for="C_PNumber">Number</label>
@@ -220,7 +220,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title divheading col-12 text-center">Edit Book</h3>
+                        <h3 class="modal-title divheading col-12 text-center">Edit Prisoner</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body" id="editPrisonerModalBodyDiv1">

@@ -42,5 +42,10 @@ namespace PrisonerMS.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult ErrorImplementation()
+        {
+            return View();
+        }
     }
 }

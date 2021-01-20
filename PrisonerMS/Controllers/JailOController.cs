@@ -92,7 +92,7 @@ namespace PrisonerMS.Controllers
         //Edit
         public ActionResult EditPrisoner(int id)
         {
-            Prisoner ptemp = PrisonerCRUD.GetPrisoner(1);
+            Prisoner ptemp = PrisonerCRUD.GetPrisoner(id);
             return PartialView("_EditPrisoner", ptemp);
         }
 
@@ -400,6 +400,11 @@ namespace PrisonerMS.Controllers
                 return Content("<script>alert('Allergy Deleted Successfully.');window.location.href=document.referrer;</script>");
             else
                 return Content("<script>alert('Allergy Record could not be Deleted.');window.location.href=document.referrer</script>");
+        }
+
+        public ActionResult ErrorImp()
+        {
+            return View("../Home/ErrorImplementation");
         }
     }
 }

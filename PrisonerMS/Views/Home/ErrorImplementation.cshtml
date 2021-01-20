@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "ErrorImplementation";
+}
+
+@section CustomHeader{
+    <nav class="navbar navbar-expand-sm bg-light">
+
+        <a class="navbar-brand" href="#">PMS</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#"> Jail Officer </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            @if (Session["FullName"] != null)
+            {
+                <p class="navbar-text"> Welcome, @Session["FullName"].ToString() </p>
+            }
+            <li class="nav-item ml-auto">
+                <a class="nav-link" href="@Url.Action("Index", "Home")"> Logout </a>
+            </li>
+        </ul>
+    </nav>
+}
+
+<div class="row">
+    <div class="container body-content">
+        <h3 style="padding: 200px;" class="divheading text-center">This Functionality is not Implemented because it was not required by G10</h3>
+    </div>
+</div>
